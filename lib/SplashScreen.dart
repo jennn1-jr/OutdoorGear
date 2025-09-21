@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
                 const Text(
-                  "CampQuest",
+                  "OutdoorGear",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 32,

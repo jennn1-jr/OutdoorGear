@@ -3,6 +3,7 @@ import 'package:login_app/home.dart';
 import 'package:login_app/login.dart';
 import 'package:login_app/register.dart';
 import 'package:login_app/SplashScreen.dart';
+import 'package:login_app/profilpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +30,14 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
         '/register': (context) => const RegisterPage(),
+        "/profile": (context) {
+          final args =
+              ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+          return ProfilePage(
+            email: args["email"] ?? "User",
+            password: args["password"] ?? "",
+          );
+        },
       },
     );
   }
