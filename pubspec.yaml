@@ -1,0 +1,33 @@
+name: login_app
+description: A simple Flutter login application for PBP task
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  
+  assets:
+    - assets/images/logo.png
+    - assets/images/background.png
+    - assets/images/background2.png
+    - assets/images/carrier60L.png
+    - assets/images/komporportable.png
+    - assets/images/Tenda.png
+    
