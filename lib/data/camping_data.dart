@@ -1,4 +1,5 @@
 import 'package:login_app/models/carrier.dart';
+import 'package:login_app/models/sleepingbag.dart';
 import 'package:login_app/models/tenda.dart';
 import '/models/camping_item.dart';
 
@@ -17,5 +18,12 @@ final List<CampingItem> campingList = [
           "assets/images/carrier60L.png",
       Deskripsi: 'Carrier berkapasitas 60L, nyaman dipakai untuk pendakian panjang',
       liter: 60),
+  Sleepingbag(
+      nama: 'Carrier',
+      brand: 'Arei',
+      gambar:
+          "assets/images/carrier60L.png",
+      Deskripsi: 'Carrier berkapasitas 60L, nyaman dipakai untuk pendakian panjang',
+      kapasitas: 60),
   
 ];
