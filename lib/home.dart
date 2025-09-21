@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
               floating: true,
               elevation: 0,
               title: const Text(
-                "CampQuest",
+                "OutdoorGear",
                 style: TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.bold,
