@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'detail_page.dart';
-import 'data/camping_data.dart'; // Pastikan path ini benar
+import 'data/camping_data.dart'; 
 import 'models/camping_item.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,9 +8,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Logika pengambilan email tidak diubah
+    
     final args =
-        ModalRoute.of(context)!.settings!.arguments as Map<String, String>?;
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
     String email = args?["email"] ?? "User";
     String password = args?['password'] ?? '';
     if (email.isEmpty) {
@@ -20,29 +20,29 @@ class HomePage extends StatelessWidget {
     String username = email.contains('@') ? email.split('@')[0] : email;
 
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Background keseluruhan tetap abu-abu
+      backgroundColor: Colors.grey[100], 
       body: CustomScrollView(
         slivers: [
-          // --- 1. SLIVER APP BAR SEBAGAI BANNER HEADER ---
+         
           SliverAppBar(
-            backgroundColor: Colors.transparent, // AppBar transparan
+            backgroundColor: Colors.transparent, 
             foregroundColor:
-                Colors.white, // Warna ikon dan teks default jadi putih
-            expandedHeight: 350.0, // Tinggi total area AppBar + banner
-            pinned: true, // AppBar akan tetap "nempel" di atas saat di-scroll
-            elevation: 0, // Tanpa bayangan
+                Colors.white, 
+            expandedHeight: 350.0, 
+            pinned: true,
+            elevation: 0, 
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
-                // Gunakan Stack untuk menumpuk gambar dan teks
+                
                 children: [
-                  // Gambar Background
+                  
                   Positioned.fill(
                     child: Image.asset(
                       "assets/images/background2.png",
                       fit: BoxFit.cover,
                     ),
                   ),
-                  // Overlay gelap untuk teks lebih jelas
+
                   Positioned.fill(
                     child: Container(
                       decoration: BoxDecoration(
@@ -51,20 +51,20 @@ class HomePage extends StatelessWidget {
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.black
-                                .withOpacity(0.5), // Lebih gelap di atas
+                                .withOpacity(0.5), 
                             Colors.black.withOpacity(0.2),
                             Colors.black
-                                .withOpacity(0.5), // Lebih gelap di bawah
+                                .withOpacity(0.5),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  // Konten teks di dalam banner
+                  
                   Positioned(
                     left: 16,
                     bottom:
-                        16, // Posisikan teks Products dan Selamat Datang di bawah
+                        16, 
                     right: 16,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,22 +94,19 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              // Judul "OutdoorGear" yang akan muncul saat di-scroll ke atas
-              // Jika ingin selalu terlihat di posisi banner, bisa digabung ke dalam Stack di atas
-              // Namun untuk mempertahankan gaya AppBar transparan, ini adalah cara yang lebih umum
-              // Jika kamu mau OutdoorGear selalu di pojok kiri atas gambar, saya bisa ubah lagi.
+             
             ),
-            // Judul "OutdoorGear" di AppBar transparan
+
             title: const Text(
               "OutdoorGear",
               style: TextStyle(
                   color:
-                      Colors.white, // Teks putih agar terlihat di atas gambar
+                      Colors.white, 
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
                   shadows: [
                     Shadow(blurRadius: 5, color: Colors.black54)
-                  ] // Tambah bayangan agar jelas
+                  ]
                   ),
             ),
             actions: [
@@ -137,7 +134,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
 
-          // --- 2. JUDUL "Semua Produk" ---
+          
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
@@ -151,12 +148,12 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          // --- 3. DAFTAR PRODUK MENGGUNAKAN ListView.builder (WAJIB) ---
+         
           SliverToBoxAdapter(
             child: ListView.builder(
               shrinkWrap: true,
               physics:
-                  const NeverScrollableScrollPhysics(), // Wajib agar CustomScrollView bisa scroll
+                  const NeverScrollableScrollPhysics(), 
               itemCount: campingList.length,
               itemBuilder: (context, index) {
                 return ProductListCard(item: campingList[index]);
@@ -169,7 +166,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// === WIDGET DESAIN KARTU (TIDAK DIUBAH) ===
+
 class ProductListCard extends StatelessWidget {
   final CampingItem item;
   const ProductListCard({super.key, required this.item});

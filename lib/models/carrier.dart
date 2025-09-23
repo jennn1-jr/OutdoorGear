@@ -13,6 +13,6 @@ class Carrier extends CampingItem {
 
   @override
   String getInfo() {
-    return "$nama $brand ($deskripsi.) $liter ";
+    return "$nama $brand ($deskripsi.) $liter Liter";
   }
 }

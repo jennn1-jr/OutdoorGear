@@ -13,6 +13,6 @@ class Tenda extends CampingItem {
 
   @override
   String getInfo() {
-    return "$nama $brand ($deskripsi.) $kapasitas ";
+    return "$nama $brand ($deskripsi.) Kapasitas: $kapasitas ";
   }
 }

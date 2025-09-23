@@ -13,6 +13,6 @@ class JaketGunung extends CampingItem {
 
   @override
   String getInfo() {
-    return "$nama $brand - Bahan: $ukuran ($deskripsi)";
+    return "$nama $brand - Ukuran: $ukuran ($deskripsi)";
   }
 }

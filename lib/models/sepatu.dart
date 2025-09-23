@@ -13,6 +13,6 @@ class Sepatu extends CampingItem {
 
   @override
   String getInfo() {
-    return "$nama $brand ($deskripsi.) $Ukuran ";
+    return "$nama $brand ($deskripsi.) UKURAN : $Ukuran ";
   }
 }

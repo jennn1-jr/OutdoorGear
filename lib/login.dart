@@ -19,38 +19,32 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Dapatkan ukuran layar untuk penyesuaian
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      // Kita gunakan Stack untuk menumpuk widget (background & form)
       body: Stack(
         children: [
-          // 1. Latar Belakang Gambar
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                    "assets/images/background.png"), // Ganti dengan gambar alam kamu
+                image: AssetImage("assets/images/background.png"),
                 fit: BoxFit.cover,
               ),
             ),
           ),
 
-          // 2. Overlay Gelap untuk Keterbacaan
           Container(
             color: Colors.black.withOpacity(0.4),
           ),
 
-          // 3. Form Login
           Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24.0),
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 24.0, vertical: 32.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9), // Latar semi-transparan
+                  color: Colors.white.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
@@ -60,19 +54,16 @@ class _LoginPageState extends State<LoginPage> {
                     )
                   ],
                 ),
-                // Batasi lebar maksimum agar terlihat bagus di layar lebar (tablet/web)
                 constraints: const BoxConstraints(maxWidth: 400),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Logo kamu
                     Image.asset(
-                      "assets/images/logo.png", // Path logo tetap sama
-                      height: 120, // Ukuran logo disesuaikan
+                      "assets/images/logo.png",
+                      height: 120,
                     ),
                     const SizedBox(height: 20),
 
-                    // Teks sapaan
                     const Text(
                       "Welcome Back, Adventurer!",
                       style: TextStyle(
@@ -91,7 +82,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 30),
 
-                    // TextField Email (logika sama, style sedikit diubah)
                     TextField(
                       controller: emailController,
                       decoration: InputDecoration(
@@ -102,19 +92,17 @@ class _LoginPageState extends State<LoginPage> {
                         fillColor: Colors.grey[100],
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide:
-                              BorderSide.none, // Hilangkan border default
+                          borderSide: BorderSide.none,
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                              color: Color(0xFF172554), width: 2),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF172554), width: 2),
                         ),
                       ),
                     ),
                     const SizedBox(height: 20),
 
-                    // TextField Password (logika sama, style sedikit diubah)
                     TextField(
                       controller: passwordController,
                       obscureText: !_isPasswordVisible,
@@ -143,28 +131,40 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                              color: Color(0xFF172554), width: 2),
+                          borderSide:
+                              const BorderSide(color: Color(0xFF172554), width: 2),
                         ),
                       ),
                     ),
                     const SizedBox(height: 30),
 
-                    // Tombol Login (logika sama, style sama)
                     SizedBox(
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Logika navigasi kamu tetap aman di sini
-                          Navigator.pushNamed(
-                            context,
-                            "/home",
-                            arguments: {
-                              "email": emailController.text,
-                              "password": passwordController.text,
-                            },
-                          );
+                          String email = emailController.text.trim();
+                          String password = passwordController.text.trim();
+
+                          if (email.isEmpty || password.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Email dan password harus diisi!"),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                            return;
+                          }
+                         
+                            Navigator.pushNamed(
+                              context,
+                              "/home",
+                              arguments: {
+                                "email": email,
+                                "password": password,
+                              },
+                            );
+                          
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -179,7 +179,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 20),
 
-                    // Tombol Register (logika sama, style diubah jadi Row)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -187,7 +186,6 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(color: Colors.grey[700])),
                         GestureDetector(
                           onTap: () {
-                            // Logika navigasi kamu tetap aman di sini
                             Navigator.pushNamed(context, "/register");
                           },
                           child: const Text(

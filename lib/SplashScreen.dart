@@ -3,7 +3,6 @@ import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
-
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -26,7 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -35,18 +33,13 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
           ),
-
-
           Container(
             color: Colors.black.withOpacity(0.5),
           ),
-
-
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 TweenAnimationBuilder(
                   tween: Tween<double>(begin: 0.0, end: 1.0),
                   duration: const Duration(milliseconds: 1500),
@@ -54,16 +47,13 @@ class _SplashScreenState extends State<SplashScreen> {
                     return Opacity(
                       opacity: value,
                       child: Padding(
-                        padding: EdgeInsets.only(
-                            bottom: value * 20), 
+                        padding: EdgeInsets.only(bottom: value * 20),
                         child: child,
                       ),
                     );
                   },
-                  child: Image.asset("assets/images/logo.png",
-                      height: 150),
+                  child: Image.asset("assets/images/logo.png", height: 150),
                 ),
-
 
                 const Text(
                   "OutdoorGear",
@@ -76,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 const SizedBox(height: 8),
 
-                // Slogan Aplikasi
+               
                 Text(
                   "Your Adventure Awaits",
                   style: TextStyle(
@@ -86,9 +76,17 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 const SizedBox(height: 40),
 
-
                 const CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Developed by Jennn",
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 14,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ],
             ),

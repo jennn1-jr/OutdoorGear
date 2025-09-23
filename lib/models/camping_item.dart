@@ -14,19 +14,19 @@ class CampingItem {
         _gambar = gambar,
         _deskripsi = deskripsi;
 
-  // Getter
+ 
   String get nama => _nama;
   String get brand => _brand;
   String get gambar => _gambar;
   String get deskripsi => _deskripsi;
 
-  // Setter
+ 
   set nama(String value) => _nama = value;
   set brand(String value) => _brand = value;
   set gambar(String value) => _gambar = value;
   set deskripsi(String value) => _deskripsi = value;
 
-  // Polymorphism candidate
+  
   String getInfo() {
     return "$_nama dari brand $_brand";
   }
