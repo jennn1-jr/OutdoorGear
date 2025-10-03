@@ -9,10 +9,12 @@ class Headlamp extends CampingItem {
     required String gambar,
     required String Deskripsi,
     required this.lumen,
-  }) : super(nama: nama, brand: brand, gambar: gambar, deskripsi: Deskripsi);
+    required double harga,
+
+  }) : super(nama: nama, brand: brand, gambar: gambar, harga: harga, deskripsi: Deskripsi );
 
   @override
   String getInfo() {
-    return "$nama $brand - $lumen lumen ($deskripsi)";
+    return "$nama $brand - harga $harga $lumen lumen ($deskripsi)";
   }
 }

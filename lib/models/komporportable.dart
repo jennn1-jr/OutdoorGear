@@ -9,10 +9,13 @@ class KomporPortable extends CampingItem {
     required String gambar,
     required String Deskripsi,
     required this.bahanBakar,
-  }) : super(nama: nama, brand: brand, gambar: gambar, deskripsi: Deskripsi);
+    required double harga,
+
+    
+  }) : super(nama: nama, brand: brand, gambar: gambar, harga: harga,deskripsi: Deskripsi);
 
   @override
   String getInfo() {
-    return "$nama $brand - Bahan bakar: $bahanBakar ($deskripsi)";
+    return "$nama $brand $harga - Bahan bakar: $bahanBakar ($deskripsi)";
   }
 }

@@ -15,54 +15,70 @@ final List<CampingItem> campingList = [
       gambar:
           "assets/images/Tenda.png",
       Deskripsi: 'Tenda Mountainsmith, cocok untuk camping bersama teman atau pasangan, dan pemasangan cepat yang ringan',
-      kapasitas: 2),
+      kapasitas: 2,
+      harga: 2500000),
+
   Carrier(
       nama: 'Carrier',
       brand: 'Arei',
       gambar:
           "assets/images/carrier60L.png",
       Deskripsi: 'Carrier berkapasitas 60L, nyaman dipakai untuk pendakian panjang',
-      liter: 60),
+      liter: 60,
+      harga: 750000),
+      
   Sleepingbag(
     nama: 'Sleeping Bag',
       brand: 'Helium',
       gambar:
           "assets/images/sleepingbag.png",
       Deskripsi: 'Kantung tidur Helium dirancang untuk para pecinta alam, menawarkan isolasi yang ringan dan efisien. Kantung Helium diisi dengan bulu bebek premium, memberikan isolasi dan kehangatan yang sangat baik untuk berbagai aktivitas luar ruangan',
-      kapasitas: 800),
+      kapasitas: 800,
+      harga: 450000),
+
+
   Sepatu(
       nama: 'Sepatu',
       brand: 'Salewa',
       gambar:
           "assets/images/Sepatu.png",
       Deskripsi: 'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
-      Ukuran: 29),
+      Ukuran: 29,
+      harga: 1200000),
+
     Hydropack(
       nama: 'Hydropack',
       brand: 'Urban Peak Hybrid',
       gambar:
           "assets/images/Hydropack.png",
       Deskripsi: 'Hydropak ringan berkapasitas 2L, cocok untuk hiking singkat atau membawa perlengkapan tambahan',
-      kapasitas: 2),
+      kapasitas: 2,
+      harga: 350000),
+      
     Headlamp(
       nama: 'Headlamp',
       brand: 'Fenix',
       gambar:
           "assets/images/Headlamp.png",
       Deskripsi: 'Headlamp dengan cahaya LED terang hingga 3000 lumen, tahan air, dan dapat mempertahankan output ekstrem jauh lebih lama daripada mode boost konvensional',
-      lumen: 3000),
+      lumen: 3000,
+      harga: 400000),
+
     JaketGunung(
       nama: 'Jaket Gunung',
       brand: 'TNF',
       gambar:
           "assets/images/jacketgunung.png",
       Deskripsi: 'Jaket gunung tahan angin dan air, dilengkapi lapisan dalam untuk menjaga suhu tubuh tetap hangat saat mendaki di cuaca dingin',
-      ukuran: "XL"),
+      ukuran: "XL",
+      harga: 650000),
+
     KomporPortable(
       nama: 'Kompor Portable',
       brand: 'Crystaline',
       gambar:
           "assets/images/komporportable.png",
       Deskripsi: 'Kompor portable berbahan bakar gas kaleng yang praktis untuk memasak saat camping. Ringan dan mudah dibawa',
-      bahanBakar: "Gas" ),
+      bahanBakar: "Gas",
+      harga: 300000 ),
 ];

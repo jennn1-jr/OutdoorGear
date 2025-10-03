@@ -32,17 +32,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-
           Container(
             color: Colors.black.withOpacity(0.4),
           ),
-
           Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24.0),
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 24.0, vertical: 32.0),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(20),
@@ -63,7 +61,6 @@ class _LoginPageState extends State<LoginPage> {
                       height: 120,
                     ),
                     const SizedBox(height: 20),
-
                     const Text(
                       "Welcome Back, Adventurer!",
                       style: TextStyle(
@@ -81,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 30),
-
                     TextField(
                       controller: emailController,
                       decoration: InputDecoration(
@@ -96,13 +92,12 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide:
-                              const BorderSide(color: Color(0xFF172554), width: 2),
+                          borderSide: const BorderSide(
+                              color: Color(0xFF172554), width: 2),
                         ),
                       ),
                     ),
                     const SizedBox(height: 20),
-
                     TextField(
                       controller: passwordController,
                       obscureText: !_isPasswordVisible,
@@ -131,13 +126,12 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide:
-                              const BorderSide(color: Color(0xFF172554), width: 2),
+                          borderSide: const BorderSide(
+                              color: Color(0xFF172554), width: 2),
                         ),
                       ),
                     ),
                     const SizedBox(height: 30),
-
                     SizedBox(
                       width: double.infinity,
                       height: 50,
@@ -149,22 +143,22 @@ class _LoginPageState extends State<LoginPage> {
                           if (email.isEmpty || password.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text("Email dan password harus diisi!"),
+                                content:
+                                    Text("Email dan password harus diisi!"),
                                 backgroundColor: Colors.red,
                               ),
                             );
                             return;
                           }
-                         
-                            Navigator.pushNamed(
-                              context,
-                              "/home",
-                              arguments: {
-                                "email": email,
-                                "password": password,
-                              },
-                            );
-                          
+
+                          Navigator.pushNamed(
+                            context,
+                            "/home",
+                            arguments: {
+                              "email": email,
+                              "password": password,
+                            },
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -178,7 +172,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

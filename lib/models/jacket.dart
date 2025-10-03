@@ -9,10 +9,11 @@ class JaketGunung extends CampingItem {
     required String gambar,
     required String Deskripsi,
     required this.ukuran,
-  }) : super(nama: nama, brand: brand, gambar: gambar, deskripsi: Deskripsi);
+    required double harga,
+  }) : super(nama: nama, brand: brand, gambar: gambar, harga: harga, deskripsi: Deskripsi);
 
   @override
   String getInfo() {
-    return "$nama $brand - Ukuran: $ukuran ($deskripsi)";
+    return "$nama $brand $harga - Ukuran: $ukuran ($deskripsi)";
   }
 }

@@ -9,7 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  getwidget: ^7.0.0
+  device_info_plus: ^12.1.0
   
   cupertino_icons: ^1.0.8
 

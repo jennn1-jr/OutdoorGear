@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'detail_page.dart';
-import 'data/camping_data.dart'; 
+import 'data/camping_data.dart';
 import 'models/camping_item.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,7 +8,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
     String email = args?["email"] ?? "User";
@@ -16,33 +15,28 @@ class HomePage extends StatelessWidget {
     if (email.isEmpty) {
       email = "User";
     }
-    
+
     String username = email.contains('@') ? email.split('@')[0] : email;
 
     return Scaffold(
-      backgroundColor: Colors.grey[100], 
+      backgroundColor: Colors.grey[100],
       body: CustomScrollView(
         slivers: [
-         
           SliverAppBar(
-            backgroundColor: Colors.transparent, 
-            foregroundColor:
-                Colors.white, 
-            expandedHeight: 350.0, 
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.white,
+            expandedHeight: 350.0,
             pinned: true,
-            elevation: 0, 
+            elevation: 0,
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
-                
                 children: [
-                  
                   Positioned.fill(
                     child: Image.asset(
                       "assets/images/background2.png",
                       fit: BoxFit.cover,
                     ),
                   ),
-
                   Positioned.fill(
                     child: Container(
                       decoration: BoxDecoration(
@@ -50,21 +44,17 @@ class HomePage extends StatelessWidget {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Colors.black
-                                .withOpacity(0.5), 
+                            Colors.black.withOpacity(0.5),
                             Colors.black.withOpacity(0.2),
-                            Colors.black
-                                .withOpacity(0.5),
+                            Colors.black.withOpacity(0.5),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  
                   Positioned(
                     left: 16,
-                    bottom:
-                        16, 
+                    bottom: 16,
                     right: 16,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,20 +84,14 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-             
             ),
-
             title: const Text(
               "OutdoorGear",
               style: TextStyle(
-                  color:
-                      Colors.white, 
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
-                  shadows: [
-                    Shadow(blurRadius: 5, color: Colors.black54)
-                  ]
-                  ),
+                  shadows: [Shadow(blurRadius: 5, color: Colors.black54)]),
             ),
             actions: [
               Padding(
@@ -133,8 +117,6 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-
-          
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
@@ -147,13 +129,10 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-
-         
           SliverToBoxAdapter(
             child: ListView.builder(
               shrinkWrap: true,
-              physics:
-                  const NeverScrollableScrollPhysics(), 
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: campingList.length,
               itemBuilder: (context, index) {
                 return ProductListCard(item: campingList[index]);
@@ -165,7 +144,6 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
 
 class ProductListCard extends StatelessWidget {
   final CampingItem item;
@@ -220,6 +198,14 @@ class ProductListCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       item.nama,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      item.harga.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,

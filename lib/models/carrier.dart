@@ -9,10 +9,13 @@ class Carrier extends CampingItem {
     required String gambar,
     required String Deskripsi,
     required this.liter,
-  }) : super(nama: nama, brand: brand, gambar: gambar , deskripsi: Deskripsi);
+    required double harga, 
+
+
+  }) : super(nama: nama, brand: brand, gambar: gambar ,harga: harga, deskripsi: Deskripsi,);
 
   @override
   String getInfo() {
-    return "$nama $brand ($deskripsi.) $liter Liter";
+    return "$nama $brand ($deskripsi.) $liter Liter - Harga: Rp$harga";
   }
 }
