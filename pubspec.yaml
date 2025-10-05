@@ -27,7 +27,7 @@ flutter:
   assets:
     - assets/images/logo.png
     - assets/images/background.png
-    - assets/images/background2.png
+    - assets/images/background1.png
     - assets/images/carrier60L.png
     - assets/images/komporportable.png
     - assets/images/Tenda.png
@@ -36,5 +36,8 @@ flutter:
     - assets/images/Hydropack.png
     - assets/images/Headlamp.png
     - assets/images/jacketgunung.png
+    - assets/images/Diskon.png
+    - assets/images/Outdoor.png
+    - assets/images/Mountain.png
     
     

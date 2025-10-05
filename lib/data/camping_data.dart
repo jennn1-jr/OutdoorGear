@@ -14,27 +14,31 @@ final List<CampingItem> campingList = [
       brand: 'Mountainsmith',
       gambar:
           "assets/images/Tenda.png",
-      Deskripsi: 'Tenda Mountainsmith, cocok untuk camping bersama teman atau pasangan, dan pemasangan cepat yang ringan',
+      deskripsi: 'Tenda Mountainsmith, cocok untuk camping bersama teman atau pasangan, dan pemasangan cepat yang ringan',
       kapasitas: 2,
-      harga: 2500000),
+      harga: 2500000,
+      gambarLatar: "assets/images/Mountain.png"),
 
   Carrier(
       nama: 'Carrier',
       brand: 'Arei',
       gambar:
           "assets/images/carrier60L.png",
-      Deskripsi: 'Carrier berkapasitas 60L, nyaman dipakai untuk pendakian panjang',
+      deskripsi: 'Carrier berkapasitas 60L, nyaman dipakai untuk pendakian panjang',
       liter: 60,
-      harga: 750000),
+      harga: 750000,
+      gambarlatar: "assets/images/Mountain.png"),
       
   Sleepingbag(
     nama: 'Sleeping Bag',
       brand: 'Helium',
       gambar:
           "assets/images/sleepingbag.png",
-      Deskripsi: 'Kantung tidur Helium dirancang untuk para pecinta alam, menawarkan isolasi yang ringan dan efisien. Kantung Helium diisi dengan bulu bebek premium, memberikan isolasi dan kehangatan yang sangat baik untuk berbagai aktivitas luar ruangan',
+      deskripsi: 'Kantung tidur Helium dirancang untuk para pecinta alam, menawarkan isolasi yang ringan dan efisien. Kantung Helium diisi dengan bulu bebek premium, memberikan isolasi dan kehangatan yang sangat baik untuk berbagai aktivitas luar ruangan',
       kapasitas: 800,
-      harga: 450000),
+      harga: 450000,
+      suhuIdeal: '-4°C',
+      gambarLatar: "assets/images/Mountain.png"),
 
 
   Sepatu(
@@ -42,43 +46,48 @@ final List<CampingItem> campingList = [
       brand: 'Salewa',
       gambar:
           "assets/images/Sepatu.png",
-      Deskripsi: 'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
-      Ukuran: 29,
-      harga: 1200000),
+      deskripsi: 'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
+      ukuran: '29',
+      harga: 1200000,
+      gambarLatar: "assets/images/Mountain.png"),
 
     Hydropack(
       nama: 'Hydropack',
       brand: 'Urban Peak Hybrid',
       gambar:
           "assets/images/Hydropack.png",
-      Deskripsi: 'Hydropak ringan berkapasitas 2L, cocok untuk hiking singkat atau membawa perlengkapan tambahan',
+      deskripsi: 'Hydropak ringan berkapasitas 2L, cocok untuk hiking singkat atau membawa perlengkapan tambahan',
       kapasitas: 2,
-      harga: 350000),
+      harga: 350000,
+      gambarlatar: "assets/images/Mountain.png"),
       
     Headlamp(
       nama: 'Headlamp',
       brand: 'Fenix',
       gambar:
           "assets/images/Headlamp.png",
-      Deskripsi: 'Headlamp dengan cahaya LED terang hingga 3000 lumen, tahan air, dan dapat mempertahankan output ekstrem jauh lebih lama daripada mode boost konvensional',
+      deskripsi: 'Headlamp dengan cahaya LED terang hingga 3000 lumen, tahan air, dan dapat mempertahankan output ekstrem jauh lebih lama daripada mode boost konvensional',
       lumen: 3000,
-      harga: 400000),
+      harga: 400000, 
+      gambarlatar: 'assets/images/Mountain.png'),
 
     JaketGunung(
       nama: 'Jaket Gunung',
       brand: 'TNF',
       gambar:
           "assets/images/jacketgunung.png",
-      Deskripsi: 'Jaket gunung tahan angin dan air, dilengkapi lapisan dalam untuk menjaga suhu tubuh tetap hangat saat mendaki di cuaca dingin',
+      deskripsi: 'Jaket gunung tahan angin dan air, dilengkapi lapisan dalam untuk menjaga suhu tubuh tetap hangat saat mendaki di cuaca dingin',
       ukuran: "XL",
-      harga: 650000),
+      harga: 650000, 
+      gambarLatar: 'assets/images/Mountain.png'),
 
     KomporPortable(
       nama: 'Kompor Portable',
       brand: 'Crystaline',
       gambar:
           "assets/images/komporportable.png",
-      Deskripsi: 'Kompor portable berbahan bakar gas kaleng yang praktis untuk memasak saat camping. Ringan dan mudah dibawa',
+      deskripsi: 'Kompor portable berbahan bakar gas kaleng yang praktis untuk memasak saat camping. Ringan dan mudah dibawa',
       bahanBakar: "Gas",
-      harga: 300000 ),
+      harga: 300000, 
+      gambarLatar: 'assets/images/Mountain.png'),
 ];

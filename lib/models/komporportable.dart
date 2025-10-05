@@ -1,21 +1,43 @@
-import 'camping_item.dart';
+import 'package:flutter/material.dart';
+import 'package:login_app/models/camping_item.dart';
 
 class KomporPortable extends CampingItem {
-  String bahanBakar;
+  final String bahanBakar;
+  final String deskripsi;
 
   KomporPortable({
     required String nama,
     required String brand,
     required String gambar,
-    required String Deskripsi,
+    required String gambarLatar,
+    required this.deskripsi,
     required this.bahanBakar,
     required double harga,
-
-    
-  }) : super(nama: nama, brand: brand, gambar: gambar, harga: harga,deskripsi: Deskripsi);
+  }) : super(
+            nama: nama,
+            brand: brand,
+            gambar: gambar,
+            gambarLatar: gambarLatar,
+            harga: harga,
+            deskripsi: deskripsi);
 
   @override
-  String getInfo() {
-    return "$nama $brand $harga - Bahan bakar: $bahanBakar ($deskripsi)";
+  String getInfo() => deskripsi;
+
+  @override
+  Widget buildSpecificDetails() {
+    return _buildInfoRow("Bahan Bakar", bahanBakar);
+  }
+
+  Widget _buildInfoRow(String title, String value) {
+    return Row(
+      children: [
+        Text(
+          "$title: ",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(value),
+      ],
+    );
   }
 }

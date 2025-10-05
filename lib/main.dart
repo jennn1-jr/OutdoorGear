@@ -28,7 +28,13 @@ class MyApp extends StatelessWidget {
       routes: {
         '/SplashScreen': (context) => const SplashScreen(),
         '/login': (context) => const LoginPage(),
-        '/home': (context) => const HomePage(),
+        '/home': (context) {
+          final args = ModalRoute.of(context)?.settings.arguments as Map<String, String>? ?? {};
+          return HomePage(
+            email: args["email"] ?? "User",
+            password: args["password"] ?? "",
+          );
+        },
         '/register': (context) => const RegisterPage(),
         "/profile": (context) {
           final args =
