@@ -61,6 +61,26 @@ final List<CampingItem> campingList = [
       harga: 1300000,
       gambarLatar: "assets/images/backgroundsepatu.png"),
 
+  Sepatu(
+      nama: 'Sepatu',
+      brand: 'Salewa',
+      gambar:
+          "assets/images/Sepatu3.png",
+      deskripsi: 'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
+      ukuran: '29,30,31',
+      harga: 1100000,
+      gambarLatar: "assets/images/backgroundsepatu.png"),
+
+  Sepatu(
+      nama: 'Sepatu',
+      brand: 'Oboz',
+      gambar:
+          "assets/images/Sepatu2.png",
+      deskripsi: 'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
+      ukuran: '29,30,31',
+      harga: 1250000,
+      gambarLatar: "assets/images/backgroundsepatu.png"),
+
     Hydropack(
       nama: 'Hydropack',
       brand: 'Urban Peak Hybrid',
