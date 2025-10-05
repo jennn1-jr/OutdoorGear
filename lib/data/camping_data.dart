@@ -75,7 +75,7 @@ final List<CampingItem> campingList = [
       nama: 'Sepatu',
       brand: 'Oboz',
       gambar:
-          "assets/images/Sepatu2.png",
+          "assets/images/Sepatu4.png",
       deskripsi: 'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
       ukuran: '29,30,31',
       harga: 1250000,
