@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'detail_page.dart';
 import 'data/camping_data.dart'; // Pastikan path ini benar
 import 'models/camping_item.dart';
+import 'categories.dart'; 
 
 class HomePage extends StatelessWidget {
   final String email;
@@ -13,10 +14,10 @@ class HomePage extends StatelessWidget {
     String username = email.contains('@') ? email.split('@')[0] : email;
 
     final List<Map<String, dynamic>> categories = [
-      {'gambar': 'assets/images/Tenda.png', 'name': 'Tenda', 'filter': 'Tenda'},
-      {'gambar': 'assets/images/Sepatu.png', 'name': 'Sepatu', 'filter': 'Sepatu'},
-      {'gambar': 'assets/images/Hydropack.png', 'name': 'Tas', 'filter': 'Carrier'},
-      {'gambar': 'assets/images/sleepingbag.png', 'name': 'Alat Tidur', 'filter': 'Sleeping Bag'},
+      {'gambar': 'assets/images/Tenda.png', 'name': 'Tenda', 'filter': 'Tenda', 'gambarLatar': 'assets/images/latar_kategori_tenda.jpg'},
+      {'gambar': 'assets/images/Sepatu.png', 'name': 'Sepatu', 'filter': 'Sepatu', 'gambarLatar': 'assets/images/latar_kategori_sepatu.jpg'},
+      {'gambar': 'assets/images/Hydropack.png', 'name': 'Tas', 'filter': 'Carrier', 'gambarLatar': 'assets/images/latar_kategori_hydropack.jpg'},
+      {'gambar': 'assets/images/sleepingbag.png', 'name': 'Alat Tidur', 'filter': 'Sleeping Bag', 'gambarLatar': 'assets/images/latar_kategori_sleepingbag.jpg'},
     ];
 
     final List<String> categoryItemNames = categories.map((cat) => cat['filter'] as String).toList();
@@ -25,12 +26,12 @@ class HomePage extends StatelessWidget {
         .toList();
 
     double screenWidth = MediaQuery.of(context).size.width;
-    int crossAxisCount = (screenWidth / 220).floor().clamp(2, 6); // Aturan baru untuk grid
+    int crossAxisCount = (screenWidth / 220).floor().clamp(2, 6);
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          // --- 1. BAGIAN HEADER (BACKGROUND, SELAMAT DATANG, SEARCH) ---
+          // --- 1. BAGIAN HEADER (TIDAK BERUBAH) ---
           SliverToBoxAdapter(
             child: Container(
               height: screenWidth > 600 ? 300 : 220,
@@ -46,73 +47,36 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Spacer untuk menurunkan posisi teks
-                  const Spacer(flex: 2), 
-                  Text(
-                    "Selamat Datang, $username",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: screenWidth > 600 ? 32 : 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  const Spacer(flex: 2),
+                  Text( "Selamat Datang, $username", style: TextStyle( color: Colors.white, fontSize: screenWidth > 600 ? 32 : 24, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 16),
-                  const TextField(
-                    decoration: InputDecoration(
-                      hintText: "Search",
-                      prefixIcon: Icon(Icons.search),
-                      filled: true,
-                      fillColor: Colors.white,
-                      contentPadding: EdgeInsets.symmetric(vertical: 15),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                   // Spacer untuk memberi jarak dari bawah
+                  const TextField( decoration: InputDecoration( hintText: "Search", prefixIcon: Icon(Icons.search), filled: true, fillColor: Colors.white, contentPadding: EdgeInsets.symmetric(vertical: 15), border: OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(30)), borderSide: BorderSide.none))),
                   const Spacer(flex: 1),
                 ],
               ),
             ),
           ),
 
-          // --- 2. BANNER DISKON (DENGAN GAMBAR LEBIH BESAR) ---
+          // --- 2. BANNER DISKON (TIDAK BERUBAH) ---
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
               child: Container(
-                height: 200, // <-- Tinggi diperbesar
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
+                height: 150,
+                decoration: BoxDecoration( borderRadius: BorderRadius.circular(20)),
                 clipBehavior: Clip.antiAlias,
                 child: Stack(
                   children: [
-                    Positioned.fill(
-                      child: Image.asset("assets/images/Outdoor.png", fit: BoxFit.cover),
-                    ),
-                    Positioned.fill(
-                      child: Container(color: Colors.black.withOpacity(0.4)),
-                    ),
-                    const Center(
-                      child: Text(
-                        "Diskon Pembelian Pertama\n All Sepatu Diskon 25%",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    Positioned.fill( child: Image.asset("assets/images/Outdoor.png", fit: BoxFit.cover)),
+                    Positioned.fill( child: Container(color: Colors.black.withOpacity(0.4))),
+                    const Center( child: Text( "Diskon Pembelian Pertama\n All Sepatu Diskon 25%", textAlign: TextAlign.center, style: TextStyle( color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))),
                   ],
                 ),
               ),
             ),
           ),
 
-          // --- 3. KATEGORI (DITENGAHKAN DI DESKTOP) ---
+          // --- 3. KATEGORI (DIKEMBALIKAN DAN BISA DI-KLIK) ---
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,20 +86,20 @@ class HomePage extends StatelessWidget {
                   child: Text("Categories", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 ),
                 const SizedBox(height: 12),
-                // Center widget untuk menempatkan ListView di tengah
                 Center(
                   child: SizedBox(
-                    height: 120, // <-- Tinggi kontainer diperbesar
+                    height: 120,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       itemCount: categories.length,
-                      // ShrinkWrap agar ListView mengambil lebar sesuai isinya
-                      shrinkWrap: true, 
+                      shrinkWrap: true,
                       itemBuilder: (context, index) {
+                        // Memanggil CategoryCard dengan semua data yang dibutuhkan
                         return CategoryCard(
-                          gambar: categories[index]['gambar'],
-                          name: categories[index]['name'],
+                          gambar: categories[index]['gambar']!,
+                          name: categories[index]['name']!,
+                          filter: categories[index]['filter']!, // <-- Kirim filter
                         );
                       },
                     ),
@@ -145,7 +109,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           
-          // --- 4. SEMUA PRODUK LAINNYA (GRID RESPONSIVE) ---
+          // --- 4. SEMUA PRODUK LAINNYA (TIDAK BERUBAH) ---
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
@@ -167,15 +131,14 @@ class HomePage extends StatelessWidget {
               },
             ),
           ),
-           const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
         ],
       ),
     );
   }
 }
 
-// === WIDGET-WIDGET CARD (TIDAK BERUBAH) ===
-
+// === WIDGET CARD PRODUK (TIDAK BERUBAH) ===
 class ProductCard extends StatelessWidget {
   final CampingItem item;
   const ProductCard({super.key, required this.item});
@@ -221,31 +184,59 @@ class ProductCard extends StatelessWidget {
   }
 }
 
+
+// === WIDGET KATEGORI (DIPERBARUI AGAR BISA DI-KLIK) ===
 class CategoryCard extends StatelessWidget {
   final String gambar;
   final String name;
-  const CategoryCard({super.key, required this.gambar, required this.name});
+  final String filter; // <-- Tambahkan ini untuk data navigasi
+
+  const CategoryCard({
+    super.key,
+    required this.gambar,
+    required this.name,
+    required this.filter, // <-- Tambahkan ini
+  });
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 100, // <-- Lebar diperbesar
-      margin: const EdgeInsets.only(right: 16),
-      child: Column(
-        children: [
-          Container(
-            height: 80, // <-- Tinggi diperbesar
-            width: 80,  // <-- Lebar diperbesar
-            padding: const EdgeInsets.all(12.0), // Padding disesuaikan
-            decoration: BoxDecoration(
-              color: const Color(0xFFF0F1F5),
-              borderRadius: BorderRadius.circular(16),
+    // Bungkus dengan GestureDetector agar bisa di-tap
+    return GestureDetector(
+      onTap: () {
+        // Logika untuk pindah ke halaman kategori
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CategoryPage(
+              categoryName: name,
+              categoryFilter: filter,
             ),
-            child: Image.asset(gambar, fit: BoxFit.contain),
           ),
-          const SizedBox(height: 8),
-          Text(name, textAlign: TextAlign.center, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-        ],
+        );
+      },
+      child: Container(
+        width: 100,
+        margin: const EdgeInsets.only(right: 16),
+        child: Column(
+          children: [
+            Container(
+              height: 80,
+              width: 80,
+              padding: const EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF0F1F5),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Image.asset(gambar, fit: BoxFit.contain),
+            ),
+            const SizedBox(height: 8),
+            Text(name,
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+          ],
+        ),
       ),
     );
-  }
+  } 
 }
