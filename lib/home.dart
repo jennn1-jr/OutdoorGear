@@ -14,9 +14,9 @@ class HomePage extends StatelessWidget {
     String username = email.contains('@') ? email.split('@')[0] : email;
 
     final List<Map<String, dynamic>> categories = [
-      {'gambar': 'assets/images/Tenda.png', 'name': 'Tenda', 'filter': 'Tenda', 'gambarLatar': 'assets/images/latar_kategori_tenda.jpg'},
+      {'gambar': 'assets/images/Tenda.png', 'name': 'Tenda', 'filter': 'Tenda', 'gambarLatar': 'assets/images/backgroundtenda.jpg'},
       {'gambar': 'assets/images/Sepatu.png', 'name': 'Sepatu', 'filter': 'Sepatu', 'gambarLatar': 'assets/images/backgroundsepatu.png'},
-      {'gambar': 'assets/images/Hydropack.png', 'name': 'Tas', 'filter': 'Carrier', 'gambarLatar': 'assets/images/latar_kategori_hydropack.jpg'},
+      {'gambar': 'assets/images/carrier60L.png', 'name': 'Carrier', 'filter': 'Carrier', 'gambarLatar': 'assets/images/backgroundcarrier.png'},
       {'gambar': 'assets/images/sleepingbag.png', 'name': 'Alat Tidur', 'filter': 'Sleeping Bag', 'gambarLatar': 'assets/images/latar_kategori_sleepingbag.jpg'},
     ];
 
@@ -159,7 +159,7 @@ class ProductCard extends StatelessWidget {
               flex: 3,
               child: ClipRRect(
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                child: Image.asset(item.gambar, width: double.infinity, fit: BoxFit.cover),
+                child: Image.asset(item.gambar, width: double.infinity, fit: BoxFit.contain),
               ),
             ),
             Expanded(

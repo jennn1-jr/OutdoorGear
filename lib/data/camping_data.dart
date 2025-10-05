@@ -17,13 +17,33 @@ final List<CampingItem> campingList = [
       deskripsi: 'Tenda Mountainsmith, cocok untuk camping bersama teman atau pasangan, dan pemasangan cepat yang ringan',
       kapasitas: 2,
       harga: 2500000,
-      gambarLatar: "assets/images/Mountain.png"),
+      gambarLatar: "assets/images/backgroundtenda.jpg"),
 
   Carrier(
       nama: 'Carrier',
       brand: 'Arei',
       gambar:
           "assets/images/carrier60L.png",
+      deskripsi: 'Carrier berkapasitas 60L, nyaman dipakai untuk pendakian panjang',
+      liter: 60,
+      harga: 750000,
+      gambarlatar: "assets/images/Mountain.png"),
+
+  Carrier(
+      nama: 'Carrier',
+      brand: 'Eiger',
+      gambar:
+          "assets/images/carrier.png",
+      deskripsi: 'Carrier berkapasitas 60L, nyaman dipakai untuk pendakian panjang',
+      liter: 60,
+      harga: 750000,
+      gambarlatar: "assets/images/Mountain.png"),
+
+  Carrier(
+      nama: 'Carrier',
+      brand: 'Eiger',
+      gambar:
+          "assets/images/carrier2.png",
       deskripsi: 'Carrier berkapasitas 60L, nyaman dipakai untuk pendakian panjang',
       liter: 60,
       harga: 750000,
@@ -53,7 +73,7 @@ final List<CampingItem> campingList = [
 
   Sepatu(
       nama: 'Sepatu',
-      brand: 'Lawa',
+      brand: 'Oboz',
       gambar:
           "assets/images/Sepatu2.png",
       deskripsi: 'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
@@ -73,9 +93,9 @@ final List<CampingItem> campingList = [
 
   Sepatu(
       nama: 'Sepatu',
-      brand: 'Oboz',
+      brand: 'Arei',
       gambar:
-          "assets/images/Sepatu4.png",
+          "assets/images/Sepatu5.png",
       deskripsi: 'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
       ukuran: '29,30,31',
       harga: 1250000,
@@ -89,7 +109,7 @@ final List<CampingItem> campingList = [
       deskripsi: 'Hydropak ringan berkapasitas 2L, cocok untuk hiking singkat atau membawa perlengkapan tambahan',
       kapasitas: 2,
       harga: 350000,
-      gambarlatar: "assets/images/Mountain.png"),
+      gambarlatar: "assets/images/backgroundhydropack.png"),
       
     Headlamp(
       nama: 'Headlamp',
