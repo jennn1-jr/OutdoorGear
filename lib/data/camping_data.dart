@@ -49,7 +49,17 @@ final List<CampingItem> campingList = [
       deskripsi: 'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
       ukuran: '29',
       harga: 1200000,
-      gambarLatar: "assets/images/Mountain.png"),
+      gambarLatar: "assets/images/backgroundsepatu.png"),
+
+  Sepatu(
+      nama: 'Sepatu',
+      brand: 'Lawa',
+      gambar:
+          "assets/images/Sepatu2.png",
+      deskripsi: 'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
+      ukuran: '29,30,31',
+      harga: 1300000,
+      gambarLatar: "assets/images/backgroundsepatu.png"),
 
     Hydropack(
       nama: 'Hydropack',

@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
 
     final List<Map<String, dynamic>> categories = [
       {'gambar': 'assets/images/Tenda.png', 'name': 'Tenda', 'filter': 'Tenda', 'gambarLatar': 'assets/images/latar_kategori_tenda.jpg'},
-      {'gambar': 'assets/images/Sepatu.png', 'name': 'Sepatu', 'filter': 'Sepatu', 'gambarLatar': 'assets/images/latar_kategori_sepatu.jpg'},
+      {'gambar': 'assets/images/Sepatu.png', 'name': 'Sepatu', 'filter': 'Sepatu', 'gambarLatar': 'assets/images/backgroundsepatu.png'},
       {'gambar': 'assets/images/Hydropack.png', 'name': 'Tas', 'filter': 'Carrier', 'gambarLatar': 'assets/images/latar_kategori_hydropack.jpg'},
       {'gambar': 'assets/images/sleepingbag.png', 'name': 'Alat Tidur', 'filter': 'Sleeping Bag', 'gambarLatar': 'assets/images/latar_kategori_sleepingbag.jpg'},
     ];
@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
           // --- 1. BAGIAN HEADER (TIDAK BERUBAH) ---
           SliverToBoxAdapter(
             child: Container(
-              height: screenWidth > 600 ? 300 : 220,
+              height: screenWidth > 800 ? 500 : 420,
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
               child: Container(
-                height: 150,
+                height: 250,
                 decoration: BoxDecoration( borderRadius: BorderRadius.circular(20)),
                 clipBehavior: Clip.antiAlias,
                 child: Stack(
@@ -99,7 +99,8 @@ class HomePage extends StatelessWidget {
                         return CategoryCard(
                           gambar: categories[index]['gambar']!,
                           name: categories[index]['name']!,
-                          filter: categories[index]['filter']!, // <-- Kirim filter
+                          filter: categories[index]['filter']!,
+                          gambarLatar: categories[index]['gambarLatar']!,
                         );
                       },
                     ),
@@ -189,13 +190,15 @@ class ProductCard extends StatelessWidget {
 class CategoryCard extends StatelessWidget {
   final String gambar;
   final String name;
-  final String filter; // <-- Tambahkan ini untuk data navigasi
+  final String filter;
+  final String gambarLatar;
 
   const CategoryCard({
     super.key,
     required this.gambar,
     required this.name,
-    required this.filter, // <-- Tambahkan ini
+    required this.filter, 
+    required this.gambarLatar,
   });
 
   @override
@@ -210,6 +213,7 @@ class CategoryCard extends StatelessWidget {
             builder: (context) => CategoryPage(
               categoryName: name,
               categoryFilter: filter,
+              categoryBackground: gambarLatar, 
             ),
           ),
         );
