@@ -35,7 +35,6 @@ flutter:
     - assets/images/Sepatu.png
     - assets/images/Hydropack.png
     - assets/images/Headlamp.png
-    - assets/images/jacketgunung.png
     - assets/images/Diskon.png
     - assets/images/Outdoor.png
     - assets/images/Mountain.png
@@ -48,5 +47,9 @@ flutter:
     - assets/images/backgroundcarrier.png
     - assets/images/carrier.png
     - assets/images/carrier2.png
+    - assets/images/backgroundjacket.jpg
+    - assets/images/jacket1.png
+    - assets/images/jacket2.png
+    - assets/images/jacket3.png
     
     

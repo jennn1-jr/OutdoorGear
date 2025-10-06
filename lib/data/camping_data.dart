@@ -123,13 +123,33 @@ final List<CampingItem> campingList = [
 
     JaketGunung(
       nama: 'Jaket Gunung',
-      brand: 'TNF',
+      brand: 'Arcteryx',
       gambar:
-          "assets/images/jacketgunung.png",
+          "assets/images/jacket1.png",
       deskripsi: 'Jaket gunung tahan angin dan air, dilengkapi lapisan dalam untuk menjaga suhu tubuh tetap hangat saat mendaki di cuaca dingin',
       ukuran: "XL",
       harga: 650000, 
-      gambarLatar: 'assets/images/Mountain.png'),
+      gambarLatar: 'assets/images/backgroundjacket.jpg'),
+
+    JaketGunung(
+      nama: 'Jaket Gunung',
+      brand: 'TNF',
+      gambar:
+          "assets/images/jacket2.png",
+      deskripsi: 'Jaket gunung tahan angin dan air, dilengkapi lapisan dalam untuk menjaga suhu tubuh tetap hangat saat mendaki di cuaca dingin',
+      ukuran: "XL",
+      harga: 650000, 
+      gambarLatar: 'assets/images/backgroundjacket.jpg'),
+
+    JaketGunung(
+      nama: 'Jaket Gunung',
+      brand: 'Patagonia',
+      gambar:
+          "assets/images/jacket3.png",
+      deskripsi: 'Jaket gunung tahan angin dan air, dilengkapi lapisan dalam untuk menjaga suhu tubuh tetap hangat saat mendaki di cuaca dingin',
+      ukuran: "XL",
+      harga: 650000, 
+      gambarLatar: 'assets/images/backgroundjacket.jpg'),
 
     KomporPortable(
       nama: 'Kompor Portable',

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'detail_page.dart';
 import 'data/camping_data.dart'; // Pastikan path ini benar
 import 'models/camping_item.dart';
-import 'categories.dart'; 
+import 'categories.dart';
 
 class HomePage extends StatelessWidget {
   final String email;
@@ -14,15 +14,37 @@ class HomePage extends StatelessWidget {
     String username = email.contains('@') ? email.split('@')[0] : email;
 
     final List<Map<String, dynamic>> categories = [
-      {'gambar': 'assets/images/Tenda.png', 'name': 'Tenda', 'filter': 'Tenda', 'gambarLatar': 'assets/images/backgroundtenda.jpg'},
-      {'gambar': 'assets/images/Sepatu.png', 'name': 'Sepatu', 'filter': 'Sepatu', 'gambarLatar': 'assets/images/backgroundsepatu.png'},
-      {'gambar': 'assets/images/carrier60L.png', 'name': 'Carrier', 'filter': 'Carrier', 'gambarLatar': 'assets/images/backgroundcarrier.png'},
-      {'gambar': 'assets/images/sleepingbag.png', 'name': 'Alat Tidur', 'filter': 'Sleeping Bag', 'gambarLatar': 'assets/images/latar_kategori_sleepingbag.jpg'},
+      {
+        'gambar': 'assets/images/Tenda.png',
+        'name': 'Tenda',
+        'filter': 'Tenda',
+        'gambarLatar': 'assets/images/backgroundtenda.jpg'
+      },
+      {
+        'gambar': 'assets/images/Sepatu.png',
+        'name': 'Sepatu',
+        'filter': 'Sepatu',
+        'gambarLatar': 'assets/images/backgroundsepatu.png'
+      },
+      {
+        'gambar': 'assets/images/carrier60L.png',
+        'name': 'Carrier',
+        'filter': 'Carrier',
+        'gambarLatar': 'assets/images/backgroundcarrier.png'
+      },
+      {
+        'gambar': 'assets/images/jacket1.png',
+        'name': 'Jacket',
+        'filter': 'Jacket',
+        'gambarLatar': 'assets/images/backgroundjacket.jpg'
+      },
     ];
 
-    final List<String> categoryItemNames = categories.map((cat) => cat['filter'] as String).toList();
+    final List<String> categoryItemNames =
+        categories.map((cat) => cat['filter'] as String).toList();
     final List<CampingItem> otherItems = campingList
-        .where((item) => !categoryItemNames.any((catName) => item.nama.contains(catName)))
+        .where((item) =>
+            !categoryItemNames.any((catName) => item.nama.contains(catName)))
         .toList();
 
     double screenWidth = MediaQuery.of(context).size.width;
@@ -40,7 +62,8 @@ class HomePage extends StatelessWidget {
                 image: DecorationImage(
                   image: AssetImage("assets/images/Mountain.png"),
                   fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(Colors.black38, BlendMode.darken),
+                  colorFilter:
+                      ColorFilter.mode(Colors.black38, BlendMode.darken),
                 ),
               ),
               child: Column(
@@ -48,9 +71,23 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Spacer(flex: 2),
-                  Text( "Selamat Datang, $username", style: TextStyle( color: Colors.white, fontSize: screenWidth > 600 ? 32 : 24, fontWeight: FontWeight.bold)),
+                  Text("Selamat Datang, $username",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenWidth > 600 ? 32 : 24,
+                          fontWeight: FontWeight.bold)),
                   const SizedBox(height: 16),
-                  const TextField( decoration: InputDecoration( hintText: "Search", prefixIcon: Icon(Icons.search), filled: true, fillColor: Colors.white, contentPadding: EdgeInsets.symmetric(vertical: 15), border: OutlineInputBorder( borderRadius: BorderRadius.all(Radius.circular(30)), borderSide: BorderSide.none))),
+                  const TextField(
+                      decoration: InputDecoration(
+                          hintText: "Search",
+                          prefixIcon: Icon(Icons.search),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsets.symmetric(vertical: 15),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                              borderSide: BorderSide.none))),
                   const Spacer(flex: 1),
                 ],
               ),
@@ -63,13 +100,24 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
               child: Container(
                 height: 250,
-                decoration: BoxDecoration( borderRadius: BorderRadius.circular(20)),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
                 clipBehavior: Clip.antiAlias,
                 child: Stack(
                   children: [
-                    Positioned.fill( child: Image.asset("assets/images/Outdoor.png", fit: BoxFit.cover)),
-                    Positioned.fill( child: Container(color: Colors.black.withOpacity(0.4))),
-                    const Center( child: Text( "Diskon Pembelian Pertama\n All Sepatu Diskon 25%", textAlign: TextAlign.center, style: TextStyle( color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))),
+                    Positioned.fill(
+                        child: Image.asset("assets/images/Outdoor.png",
+                            fit: BoxFit.cover)),
+                    Positioned.fill(
+                        child: Container(color: Colors.black.withOpacity(0.4))),
+                    const Center(
+                        child: Text(
+                            "Diskon Pembelian Pertama\n All Sepatu Diskon 25%",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold))),
                   ],
                 ),
               ),
@@ -83,7 +131,9 @@ class HomePage extends StatelessWidget {
               children: [
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text("Categories", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  child: Text("Categories",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 ),
                 const SizedBox(height: 12),
                 Center(
@@ -109,12 +159,13 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          
+
           // --- 4. SEMUA PRODUK LAINNYA (TIDAK BERUBAH) ---
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
-              child: Text("Produk Lainnya", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              child: Text("Produk Lainnya",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
           ),
           SliverPadding(
@@ -146,20 +197,27 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(item: item))),
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => DetailPage(item: item))),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 5))]
-        ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5))
+            ]),
         child: Column(
           children: [
             Expanded(
               flex: 3,
               child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                child: Image.asset(item.gambar, width: double.infinity, fit: BoxFit.contain),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(16)),
+                child: Image.asset(item.gambar,
+                    width: double.infinity, fit: BoxFit.contain),
               ),
             ),
             Expanded(
@@ -169,11 +227,19 @@ class ProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(item.brand, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                    Text(item.brand,
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 12)),
                     const SizedBox(height: 4),
-                    Text(item.nama, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14), maxLines: 1, overflow: TextOverflow.ellipsis),
+                    Text(item.nama,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis),
                     const Spacer(),
-                    Text("Rp. ${item.harga.toString()}", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text("Rp. ${item.harga.toString()}",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16)),
                   ],
                 ),
               ),
@@ -184,7 +250,6 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
-
 
 // === WIDGET KATEGORI (DIPERBARUI AGAR BISA DI-KLIK) ===
 class CategoryCard extends StatelessWidget {
@@ -197,7 +262,7 @@ class CategoryCard extends StatelessWidget {
     super.key,
     required this.gambar,
     required this.name,
-    required this.filter, 
+    required this.filter,
     required this.gambarLatar,
   });
 
@@ -213,7 +278,7 @@ class CategoryCard extends StatelessWidget {
             builder: (context) => CategoryPage(
               categoryName: name,
               categoryFilter: filter,
-              categoryBackground: gambarLatar, 
+              categoryBackground: gambarLatar,
             ),
           ),
         );
@@ -242,5 +307,5 @@ class CategoryCard extends StatelessWidget {
         ),
       ),
     );
-  } 
+  }
 }
