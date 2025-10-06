@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_app/models/camping_item.dart';
 
 class Sleepingbag extends CampingItem {
-  final String suhuIdeal; // Contoh properti unik untuk sleeping bag
+  final String Ukuran;
   final String deskripsi;
 
   Sleepingbag({
@@ -11,8 +11,8 @@ class Sleepingbag extends CampingItem {
     required String gambar,
     required String gambarLatar,
     required this.deskripsi,
-    required this.suhuIdeal,
-    required double harga, required int kapasitas,
+    required this.Ukuran,
+    required double harga,
   }) : super(nama: nama, brand: brand, gambar: gambar, gambarLatar: gambarLatar, harga: harga, deskripsi: deskripsi);
 
   @override
@@ -20,7 +20,7 @@ class Sleepingbag extends CampingItem {
 
   @override
   Widget buildSpecificDetails() {
-    return _buildInfoRow("Suhu Ideal", suhuIdeal);
+    return _buildInfoRow("Ukuran", Ukuran);
   }
 
   Widget _buildInfoRow(String label, String value) {

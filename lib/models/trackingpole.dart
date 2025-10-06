@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/models/camping_item.dart';
 
-class Jacket extends CampingItem {
-  final String ukuran;
+class Trackingpole extends CampingItem {
+  final String Panjang; 
   final String deskripsi;
 
-  Jacket({
+  Trackingpole({
     required String nama,
     required String brand,
     required String gambar,
-    required this.deskripsi,
-    required this.ukuran,
-    required double harga,
     required String gambarLatar,
-  }) : super(
-    nama: nama,
-    brand: brand,
-    gambar: gambar,
-    harga: harga,
-    deskripsi: deskripsi,
-    gambarLatar: gambarLatar,
-  );
+    required this.deskripsi,
+    required this.Panjang,
+    required double harga,
+  }) : super(nama: nama, brand: brand, gambar: gambar, gambarLatar: gambarLatar, harga: harga, deskripsi: deskripsi);
 
   @override
   String getInfo() => deskripsi;
@@ -32,8 +25,9 @@ class Jacket extends CampingItem {
       children: [
         const Text("Ukuran Tersedia:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black54)),
         const SizedBox(height: 8),
+        // Pisahkan ukuran berdasarkan koma dan buat menjadi tombol
         Row(
-          children: ukuran.split(',').map((size) => ChoiceButton(label: size.trim())).toList(),
+          children: Panjang.split(',').map((size) => ChoiceButton(label: size.trim())).toList(),
         ),
       ],
     );

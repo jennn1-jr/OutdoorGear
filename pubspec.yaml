@@ -31,6 +31,7 @@ flutter:
     - assets/images/carrier60L.png
     - assets/images/komporportable.png
     - assets/images/Tenda.png
+    - assets/images/backgroundsleepingbag.png
     - assets/images/sleepingbag.png
     - assets/images/Sepatu.png
     - assets/images/Hydropack.png
@@ -43,6 +44,7 @@ flutter:
     - assets/images/Sepatu3.png
     - assets/images/Sepatu5.png
     - assets/images/backgroundtenda.jpg
+    - assets/images/Tenda2.png
     - assets/images/backgroundhydropack.png
     - assets/images/backgroundcarrier.png
     - assets/images/carrier.png

@@ -6,6 +6,7 @@ import 'package:login_app/models/komporportable.dart';
 import 'package:login_app/models/sepatu.dart';
 import 'package:login_app/models/sleepingbag.dart';
 import 'package:login_app/models/tenda.dart';
+import 'package:login_app/models/trackingpole.dart';
 import '/models/camping_item.dart';
 
 final List<CampingItem> campingList = [
@@ -17,6 +18,16 @@ final List<CampingItem> campingList = [
       deskripsi: 'Tenda Mountainsmith, cocok untuk camping bersama teman atau pasangan, dan pemasangan cepat yang ringan',
       kapasitas: 2,
       harga: 2500000,
+      gambarLatar: "assets/images/backgroundtenda.jpg"),
+
+    Tenda(
+      nama: 'Tenda',
+      brand: 'Eureka',
+      gambar:
+          "assets/images/Tenda2.png",
+      deskripsi: 'Tenda Eureka, cocok untuk camping bersama teman atau pasangan, dan Tenda yang sangat besar untuk keluarga',
+      kapasitas: 6,
+      harga: 4500000,
       gambarLatar: "assets/images/backgroundtenda.jpg"),
 
   Carrier(
@@ -55,10 +66,9 @@ final List<CampingItem> campingList = [
       gambar:
           "assets/images/sleepingbag.png",
       deskripsi: 'Kantung tidur Helium dirancang untuk para pecinta alam, menawarkan isolasi yang ringan dan efisien. Kantung Helium diisi dengan bulu bebek premium, memberikan isolasi dan kehangatan yang sangat baik untuk berbagai aktivitas luar ruangan',
-      kapasitas: 800,
       harga: 450000,
-      suhuIdeal: '-4°C',
-      gambarLatar: "assets/images/Mountain.png"),
+      Ukuran: 'Regular',
+      gambarLatar: "assets/images/backgroundsleepingbag.png"),
 
 
   Sepatu(
@@ -121,8 +131,8 @@ final List<CampingItem> campingList = [
       harga: 400000, 
       gambarlatar: 'assets/images/Mountain.png'),
 
-    JaketGunung(
-      nama: 'Jaket Gunung',
+    Jacket(
+      nama: 'Jacket Gunung',
       brand: 'Arcteryx',
       gambar:
           "assets/images/jacket1.png",
@@ -131,8 +141,8 @@ final List<CampingItem> campingList = [
       harga: 650000, 
       gambarLatar: 'assets/images/backgroundjacket.jpg'),
 
-    JaketGunung(
-      nama: 'Jaket Gunung',
+    Jacket(
+      nama: 'Jacket Gunung',
       brand: 'TNF',
       gambar:
           "assets/images/jacket2.png",
@@ -141,8 +151,8 @@ final List<CampingItem> campingList = [
       harga: 650000, 
       gambarLatar: 'assets/images/backgroundjacket.jpg'),
 
-    JaketGunung(
-      nama: 'Jaket Gunung',
+    Jacket(
+      nama: 'Jacket Gunung',
       brand: 'Patagonia',
       gambar:
           "assets/images/jacket3.png",
@@ -160,4 +170,15 @@ final List<CampingItem> campingList = [
       bahanBakar: "Gas",
       harga: 300000, 
       gambarLatar: 'assets/images/Mountain.png'),
+
+    Trackingpole(
+      nama: 'Tracking Pole',
+      brand: 'Halim',
+      gambar:
+          "assets/images/trackingpole1.png",
+      deskripsi: 'Tracking pole ringan dan kuat, membantu menjaga keseimbangan saat mendaki di medan terjal',
+      Panjang: '130cm, 140cm, 150cm',
+      harga: 1200000,
+      gambarLatar: "assets/images/backgroundtrackingpole.png"),
+
 ];
