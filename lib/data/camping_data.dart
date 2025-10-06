@@ -3,6 +3,7 @@ import 'package:login_app/models/headlamp.dart';
 import 'package:login_app/models/hydropack.dart';
 import 'package:login_app/models/jacket.dart';
 import 'package:login_app/models/komporportable.dart';
+import 'package:login_app/models/sarungtangan.dart';
 import 'package:login_app/models/sepatu.dart';
 import 'package:login_app/models/sleepingbag.dart';
 import 'package:login_app/models/tenda.dart';
@@ -129,7 +130,7 @@ final List<CampingItem> campingList = [
       deskripsi: 'Headlamp dengan cahaya LED terang hingga 3000 lumen, tahan air, dan dapat mempertahankan output ekstrem jauh lebih lama daripada mode boost konvensional',
       lumen: 3000,
       harga: 400000, 
-      gambarlatar: 'assets/images/Mountain.png'),
+      gambarlatar: 'assets/images/backgroundheadlamp.png'),
 
     Jacket(
       nama: 'Jacket Gunung',
@@ -169,16 +170,26 @@ final List<CampingItem> campingList = [
       deskripsi: 'Kompor portable berbahan bakar gas kaleng yang praktis untuk memasak saat camping. Ringan dan mudah dibawa',
       bahanBakar: "Gas",
       harga: 300000, 
-      gambarLatar: 'assets/images/Mountain.png'),
+      gambarLatar: 'assets/images/backgroundkomporportable.png'),
 
     Trackingpole(
       nama: 'Tracking Pole',
-      brand: 'Halim',
+      brand: 'Antishock',
       gambar:
           "assets/images/trackingpole1.png",
       deskripsi: 'Tracking pole ringan dan kuat, membantu menjaga keseimbangan saat mendaki di medan terjal',
       Panjang: '130cm, 140cm, 150cm',
       harga: 1200000,
       gambarLatar: "assets/images/backgroundtrackingpole.png"),
+
+    Sarungtangan(
+      nama: 'Sarung Tangan',
+      brand: 'Arei',
+      gambar:
+          "assets/images/Sarungtangan.png",
+      deskripsi: 'Sarung tangan yang terbuat dari bahan polar fleece, cocok digunakan ketika dalam cuaca dingin seperti saat camping maupun melakukan kegiatan outdoor lainnya. Sarung tangan Marion siap menemani petualangan Areingers',
+      ukuran: 'M,L,XL',
+      harga: 1300000,
+      gambarLatar: "assets/images/backgroundsarungtangan.png"),
 
 ];

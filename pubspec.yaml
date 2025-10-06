@@ -29,12 +29,14 @@ flutter:
     - assets/images/background.png
     - assets/images/background1.png
     - assets/images/carrier60L.png
+    - assets/images/backgroundkomporportable.png
     - assets/images/komporportable.png
     - assets/images/Tenda.png
     - assets/images/backgroundsleepingbag.png
     - assets/images/sleepingbag.png
     - assets/images/Sepatu.png
     - assets/images/Hydropack.png
+    - assets/images/backgroundheadlamp.png
     - assets/images/Headlamp.png
     - assets/images/Diskon.png
     - assets/images/Outdoor.png
@@ -53,5 +55,9 @@ flutter:
     - assets/images/jacket1.png
     - assets/images/jacket2.png
     - assets/images/jacket3.png
+    - assets/images/backgroundsarungtangan.png
+    - assets/images/Sarungtangan.png
+    - assets/images/backgroundtrackingpole.png
+    - assets/images/trackingpole1.png
     
     
