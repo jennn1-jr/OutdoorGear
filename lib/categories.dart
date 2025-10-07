@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'data/camping_data.dart';
 import 'models/camping_item.dart';
 import 'detail_page.dart';
+import 'package:intl/intl.dart';
+
+final NumberFormat formatRupiah =
+    NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
 
 class CategoryPage extends StatelessWidget {
   final String categoryName;
@@ -21,7 +25,7 @@ class CategoryPage extends StatelessWidget {
         .where((item) =>
             item.nama.toLowerCase().contains(categoryFilter.toLowerCase()))
         .toList();
-        
+
     // Cek lebar layar untuk layout responsif
     final isDesktop = MediaQuery.of(context).size.width > 800;
     final crossAxisCount = isDesktop ? 4 : 2; // 4 kolom di desktop, 2 di HP
@@ -48,17 +52,16 @@ class CategoryPage extends StatelessWidget {
                   // Overlay Gradien untuk efek samar
                   Container(
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.8),
-                          Colors.transparent,
-                          Colors.black.withOpacity(0.8),
-                        ],
-                        stops: const [0.0, 0.5, 1.0],
-                      )
-                    ),
+                        gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.8),
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.8),
+                      ],
+                      stops: const [0.0, 0.5, 1.0],
+                    )),
                   ),
                   SafeArea(
                     child: Padding(
@@ -70,13 +73,15 @@ class CategoryPage extends StatelessWidget {
                         children: [
                           // --- 3. EFEK SAMAR/TRANSPARAN ---
                           Opacity(
-                            opacity: 0.50, // <-- Atur tingkat transparansi di sini
+                            opacity:
+                                0.50, // <-- Atur tingkat transparansi di sini
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   "Home > $categoryName",
-                                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 16),
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
@@ -91,13 +96,16 @@ class CategoryPage extends StatelessWidget {
                                 const TextField(
                                   decoration: InputDecoration(
                                     hintText: "Search in this category...",
-                                    prefixIcon: Icon(Icons.search, color: Colors.grey),
+                                    prefixIcon:
+                                        Icon(Icons.search, color: Colors.grey),
                                     hintStyle: TextStyle(color: Colors.grey),
                                     filled: true,
                                     fillColor: Colors.white,
-                                    contentPadding: EdgeInsets.symmetric(vertical: 14),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 14),
                                     border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(30)),
                                       borderSide: BorderSide.none,
                                     ),
                                   ),
@@ -122,7 +130,8 @@ class CategoryPage extends StatelessWidget {
                 crossAxisCount: crossAxisCount, // Jumlah kolom responsif
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
-                childAspectRatio: childAspectRatio, // <-- 2. RASIO KARTU DIPERBAIKI
+                childAspectRatio:
+                    childAspectRatio, // <-- 2. RASIO KARTU DIPERBAIKI
               ),
               itemCount: categoryItems.length,
               itemBuilder: (context, index) {
@@ -174,18 +183,22 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(item.brand,
-                      style:
-                          const TextStyle(color: Colors.grey, fontSize: 12)),
+                      style: const TextStyle(color: Colors.grey, fontSize: 12)),
                   const SizedBox(height: 4),
                   Text(item.nama,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16), // Font diperbesar sedikit
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16), // Font diperbesar sedikit
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis),
-                   const SizedBox(height: 8),
-                  Text("Rp. ${item.harga.toString()}",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16, color: Colors.deepOrange)),
+                  const SizedBox(height: 8),
+                  Text(
+                    formatRupiah.format(item.harga),
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             ),
