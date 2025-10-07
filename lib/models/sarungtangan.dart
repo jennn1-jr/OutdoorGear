@@ -25,7 +25,7 @@ class Sarungtangan extends CampingItem {
       children: [
         const Text("Ukuran Tersedia:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black54)),
         const SizedBox(height: 8),
-        // Pisahkan ukuran berdasarkan koma dan buat menjadi tombol
+        
         Row(
           children: ukuran.split(',').map((size) => ChoiceButton(label: size.trim())).toList(),
         ),

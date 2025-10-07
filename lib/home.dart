@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/categories.dart';
 import 'detail_page.dart';
-import 'data/camping_data.dart'; // Pastikan path ini benar
+import 'data/camping_data.dart';
 import 'models/camping_item.dart';
 import 'profilpage.dart';
-import 'package:intl/intl.dart'; 
-
+import 'package:intl/intl.dart';
 
 final NumberFormat formatRupiah =
     NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
-
 
 class HomePage extends StatelessWidget {
   final String email;
   final String password;
   const HomePage({super.key, required this.email, required this.password});
-
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +48,6 @@ class HomePage extends StatelessWidget {
     final List<String> categoryItemNames =
         categories.map((cat) => cat['filter'] as String).toList();
 
-    // Logika filter yang sudah benar (case-insensitive)
     final List<CampingItem> otherItems = campingList
         .where((item) => !categoryItemNames.any((catName) =>
             item.nama.toLowerCase().contains(catName.toLowerCase())))
@@ -63,14 +59,11 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          // --- 1. BAGIAN HEADER (DENGAN TAMBAHAN PROFIL) ---
           SliverToBoxAdapter(
             child: Container(
               height: screenWidth > 800 ? 500 : 420,
-              // Gunakan Stack untuk menumpuk gambar, konten, dan ikon profil
               child: Stack(
                 children: [
-                  // Gambar Latar Belakang (paling bawah)
                   Positioned.fill(
                     child: Image.asset(
                       "assets/images/Mountain.png",
@@ -79,8 +72,6 @@ class HomePage extends StatelessWidget {
                       colorBlendMode: BlendMode.darken,
                     ),
                   ),
-
-                  // Konten Header (Selamat Datang & Search)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: Column(
@@ -110,10 +101,6 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  // ===============================================
-                  // 2. TAMBAHAN KODE PROFIL HANYA DI SINI
-                  // ===============================================
                   Positioned(
                     top: 40,
                     right: 24,
@@ -144,13 +131,10 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // ===============================================
                 ],
               ),
             ),
           ),
-
-          // --- 2. BANNER DISKON (TIDAK BERUBAH) ---
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
@@ -179,8 +163,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-
-          // --- 3. KATEGORI (TIDAK BERUBAH) ---
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,25 +176,32 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 12),
                 SizedBox(
                   height: 120,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      return CategoryCard(
-                        gambar: categories[index]['gambar']!,
-                        name: categories[index]['name']!,
-                        filter: categories[index]['filter']!,
-                        gambarLatar: categories[index]['gambarLatar']!,
-                      );
-                    },
+                  child: Center(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: categories.length,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0), // hilangkan padding default
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10.0), // jarak antar item
+                          child: CategoryCard(
+                            gambar: categories[index]['gambar']!,
+                            name: categories[index]['name']!,
+                            filter: categories[index]['filter']!,
+                            gambarLatar: categories[index]['gambarLatar']!,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-
-          // --- 4. SEMUA PRODUK LAINNYA (TIDAK BERUBAH) ---
+          
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
@@ -242,7 +231,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// === WIDGET CARD PRODUK (STRUKTUR ASLI, TIDAK DIUBAH) ===
 class ProductCard extends StatelessWidget {
   final CampingItem item;
   const ProductCard({super.key, required this.item});
@@ -307,7 +295,6 @@ class ProductCard extends StatelessWidget {
   }
 }
 
-// === WIDGET KATEGORI (STRUKTUR ASLI, TIDAK DIUBAH) ===
 class CategoryCard extends StatelessWidget {
   final String gambar;
   final String name;

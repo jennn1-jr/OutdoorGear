@@ -175,6 +175,6 @@ final List<CampingItem> campingList = [
       deskripsi:
           'Sarung tangan yang terbuat dari bahan polar fleece, cocok digunakan ketika dalam cuaca dingin seperti saat camping maupun melakukan kegiatan outdoor lainnya. Sarung tangan Marion siap menemani petualangan Areingers',
       ukuran: 'M,L,XL',
-      harga: 1300000,
+      harga: 130000,
       gambarLatar: "assets/images/backgroundsarungtangan.png"),
 ];
