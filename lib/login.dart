@@ -19,8 +19,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -66,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF172554),
+                        color: Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -83,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: InputDecoration(
                         labelText: "Email",
                         prefixIcon:
-                            const Icon(Icons.email, color: Color(0xFF172554)),
+                            const Icon(Icons.email, color: Color.fromARGB(255, 0, 0, 0)),
                         filled: true,
                         fillColor: Colors.grey[100],
                         border: OutlineInputBorder(
@@ -93,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                              color: Color(0xFF172554), width: 2),
+                              color: Color.fromARGB(255, 0, 0, 0), width: 2),
                         ),
                       ),
                     ),
@@ -104,13 +102,13 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: InputDecoration(
                         labelText: "Password",
                         prefixIcon:
-                            const Icon(Icons.lock, color: Color(0xFF172554)),
+                            const Icon(Icons.lock, color: Color.fromARGB(255, 0, 0, 0)),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _isPasswordVisible
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: const Color(0xFF172554),
+                            color: const Color.fromARGB(255, 0, 0, 0),
                           ),
                           onPressed: () {
                             setState(() {
@@ -127,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                              color: Color(0xFF172554), width: 2),
+                              color: Color.fromARGB(255, 0, 0, 0), width: 2),
                         ),
                       ),
                     ),
@@ -163,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12)),
-                          backgroundColor: const Color(0xFF172554),
+                          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                           foregroundColor: Colors.white,
                         ),
                         child: const Text("Login",
@@ -184,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: const Text(
                             "Daftar",
                             style: TextStyle(
-                              color: Color(0xFF172554),
+                              color: Color.fromARGB(255, 0, 0, 0),
                               fontWeight: FontWeight.bold,
                             ),
                           ),

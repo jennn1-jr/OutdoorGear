@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/categories.dart';
 import 'detail_page.dart';
 import 'data/camping_data.dart'; // Pastikan path ini benar
 import 'models/camping_item.dart';
-import 'categories.dart';
+import 'profilpage.dart';
+import 'package:intl/intl.dart'; 
+
+
+final NumberFormat formatRupiah =
+    NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
+
 
 class HomePage extends StatelessWidget {
   final String email;
   final String password;
   const HomePage({super.key, required this.email, required this.password});
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +50,11 @@ class HomePage extends StatelessWidget {
 
     final List<String> categoryItemNames =
         categories.map((cat) => cat['filter'] as String).toList();
+
+    // Logika filter yang sudah benar (case-insensitive)
     final List<CampingItem> otherItems = campingList
-        .where((item) =>
-            !categoryItemNames.any((catName) => item.nama.contains(catName)))
+        .where((item) => !categoryItemNames.any((catName) =>
+            item.nama.toLowerCase().contains(catName.toLowerCase())))
         .toList();
 
     double screenWidth = MediaQuery.of(context).size.width;
@@ -53,42 +63,88 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          // --- 1. BAGIAN HEADER (TIDAK BERUBAH) ---
+          // --- 1. BAGIAN HEADER (DENGAN TAMBAHAN PROFIL) ---
           SliverToBoxAdapter(
             child: Container(
               height: screenWidth > 800 ? 500 : 420,
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/Mountain.png"),
-                  fit: BoxFit.cover,
-                  colorFilter:
-                      ColorFilter.mode(Colors.black38, BlendMode.darken),
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              // Gunakan Stack untuk menumpuk gambar, konten, dan ikon profil
+              child: Stack(
                 children: [
-                  const Spacer(flex: 2),
-                  Text("Selamat Datang, $username",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: screenWidth > 600 ? 32 : 24,
-                          fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 16),
-                  const TextField(
-                      decoration: InputDecoration(
-                          hintText: "Search",
-                          prefixIcon: Icon(Icons.search),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: EdgeInsets.symmetric(vertical: 15),
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
-                              borderSide: BorderSide.none))),
-                  const Spacer(flex: 1),
+                  // Gambar Latar Belakang (paling bawah)
+                  Positioned.fill(
+                    child: Image.asset(
+                      "assets/images/Mountain.png",
+                      fit: BoxFit.cover,
+                      color: Colors.black38,
+                      colorBlendMode: BlendMode.darken,
+                    ),
+                  ),
+
+                  // Konten Header (Selamat Datang & Search)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Spacer(flex: 2),
+                        Text("Selamat Datang, $username",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth > 600 ? 32 : 24,
+                                fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 16),
+                        const TextField(
+                            decoration: InputDecoration(
+                                hintText: "Search",
+                                prefixIcon: Icon(Icons.search),
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding:
+                                    EdgeInsets.symmetric(vertical: 15),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(30)),
+                                    borderSide: BorderSide.none))),
+                        const Spacer(flex: 1),
+                      ],
+                    ),
+                  ),
+
+                  // ===============================================
+                  // 2. TAMBAHAN KODE PROFIL HANYA DI SINI
+                  // ===============================================
+                  Positioned(
+                    top: 40,
+                    right: 24,
+                    child: SafeArea(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProfilePage(
+                                email: email,
+                                password: password,
+                              ),
+                            ),
+                          );
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white.withOpacity(0.3),
+                          child: Text(
+                            username.isNotEmpty
+                                ? username[0].toUpperCase()
+                                : 'U',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // ===============================================
                 ],
               ),
             ),
@@ -124,7 +180,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          // --- 3. KATEGORI (DIKEMBALIKAN DAN BISA DI-KLIK) ---
+          // --- 3. KATEGORI (TIDAK BERUBAH) ---
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,24 +192,20 @@ class HomePage extends StatelessWidget {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 ),
                 const SizedBox(height: 12),
-                Center(
-                  child: SizedBox(
-                    height: 120,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: categories.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        // Memanggil CategoryCard dengan semua data yang dibutuhkan
-                        return CategoryCard(
-                          gambar: categories[index]['gambar']!,
-                          name: categories[index]['name']!,
-                          filter: categories[index]['filter']!,
-                          gambarLatar: categories[index]['gambarLatar']!,
-                        );
-                      },
-                    ),
+                SizedBox(
+                  height: 120,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      return CategoryCard(
+                        gambar: categories[index]['gambar']!,
+                        name: categories[index]['name']!,
+                        filter: categories[index]['filter']!,
+                        gambarLatar: categories[index]['gambarLatar']!,
+                      );
+                    },
                   ),
                 ),
               ],
@@ -190,7 +242,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// === WIDGET CARD PRODUK (TIDAK BERUBAH) ===
+// === WIDGET CARD PRODUK (STRUKTUR ASLI, TIDAK DIUBAH) ===
 class ProductCard extends StatelessWidget {
   final CampingItem item;
   const ProductCard({super.key, required this.item});
@@ -237,9 +289,13 @@ class ProductCard extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis),
                     const Spacer(),
-                    Text("Rp. ${item.harga.toString()}",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text(
+                      formatRupiah.format(item.harga),
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
@@ -251,7 +307,7 @@ class ProductCard extends StatelessWidget {
   }
 }
 
-// === WIDGET KATEGORI (DIPERBARUI AGAR BISA DI-KLIK) ===
+// === WIDGET KATEGORI (STRUKTUR ASLI, TIDAK DIUBAH) ===
 class CategoryCard extends StatelessWidget {
   final String gambar;
   final String name;
@@ -268,10 +324,8 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Bungkus dengan GestureDetector agar bisa di-tap
     return GestureDetector(
       onTap: () {
-        // Logika untuk pindah ke halaman kategori
         Navigator.push(
           context,
           MaterialPageRoute(
