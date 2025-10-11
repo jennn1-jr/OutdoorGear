@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // ✅ Tambahkan ini
-import 'models/camping_item.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart'; // ✅ untuk Provider
+import 'package:login_app/models/camping_item.dart';
+import 'package:login_app/models/cart_providers.dart'; // ✅ import provider cart
 
 class DetailPage extends StatefulWidget {
   final CampingItem item;
@@ -13,7 +15,6 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   int _quantity = 1;
 
-  // ✅ Tambahkan formatter Rupiah
   final NumberFormat formatRupiah =
       NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
 
@@ -33,6 +34,8 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false); // ✅ akses provider
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -90,7 +93,7 @@ class _DetailPageState extends State<DetailPage> {
                             quantity: _quantity,
                             onIncrement: _incrementQuantity,
                             onDecrement: _decrementQuantity,
-                            formatRupiah: formatRupiah, // ✅ kirim format
+                            formatRupiah: formatRupiah,
                           ),
                         ),
                       ],
@@ -114,24 +117,63 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                     const SizedBox(height: 40),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepOrange,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+
+                    // ✅ Tombol keranjang & beli sekarang
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Tambah item ke cart sesuai quantity
+                              for (int i = 0; i < _quantity; i++) {
+                                cartProvider.tambahItem(widget.item);
+                              }
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      "${widget.item.nama} ditambahkan ke keranjang"),
+                                  backgroundColor: Colors.green.shade600,
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orange,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: const Text(
+                              "Tambah ke Keranjang",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                        child: const Text(
-                          "Beli Sekarang",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          flex: 1,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/cart');
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.deepOrange,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: const Text(
+                              "Lihat Keranjang",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
@@ -144,13 +186,13 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-// === WIDGET DETAIL PRODUK (sudah diperbarui) ===
+// === WIDGET DETAIL PRODUK ===
 class ProductDetails extends StatelessWidget {
   final CampingItem item;
   final int quantity;
   final VoidCallback onIncrement;
   final VoidCallback onDecrement;
-  final NumberFormat formatRupiah; // ✅ Tambah parameter formatter
+  final NumberFormat formatRupiah;
 
   const ProductDetails({
     super.key,
@@ -158,7 +200,7 @@ class ProductDetails extends StatelessWidget {
     required this.quantity,
     required this.onIncrement,
     required this.onDecrement,
-    required this.formatRupiah, // ✅ wajib dikirim
+    required this.formatRupiah,
   });
 
   @override
@@ -178,7 +220,7 @@ class ProductDetails extends StatelessWidget {
             style: TextStyle(fontSize: 16, color: Colors.grey.shade700)),
         const SizedBox(height: 16),
 
-        // ✅ Harga sekarang diformat otomatis
+        // ✅ Harga dengan format Rupiah
         Text(
           formatRupiah.format(item.harga),
           style: const TextStyle(
@@ -206,7 +248,7 @@ class ProductDetails extends StatelessWidget {
   }
 }
 
-// Widget QuantitySelector tidak berubah
+// === JUMLAH SELECTOR ===
 class QuantitySelector extends StatelessWidget {
   final int quantity;
   final VoidCallback onIncrement;

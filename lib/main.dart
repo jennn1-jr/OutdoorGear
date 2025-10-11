@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // ✅ Sudah benar
 import 'package:login_app/home.dart';
 import 'package:login_app/login.dart';
 import 'package:login_app/register.dart';
 import 'package:login_app/SplashScreen.dart';
 import 'package:login_app/profilpage.dart';
-
+import 'package:login_app/models/cart_providers.dart'; // ✅ Sudah benar
+import 'package:login_app/models/cart_page.dart'; // ✅ import halaman cart
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CartProvider()), // ✅ Sudah benar
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Jennn',
+      title: 'OutdoorGear',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
@@ -23,20 +32,21 @@ class MyApp extends StatelessWidget {
           seedColor: const Color(0xFF172554),
         ),
       ),
-      // 👇 jangan pakai "home:" lagi
       initialRoute: '/SplashScreen',
       routes: {
         '/SplashScreen': (context) => const SplashScreen(),
         '/login': (context) => const LoginPage(),
         '/home': (context) {
-          final args = ModalRoute.of(context)?.settings.arguments as Map<String, String>? ?? {};
+          final args =
+              ModalRoute.of(context)?.settings.arguments as Map<String, String>? ??
+                  {};
           return HomePage(
             email: args["email"] ?? "User",
             password: args["password"] ?? "",
           );
         },
         '/register': (context) => const RegisterPage(),
-        "/profile": (context) {
+        '/profile': (context) {
           final args =
               ModalRoute.of(context)!.settings.arguments as Map<String, String>;
           return ProfilePage(
@@ -44,6 +54,9 @@ class MyApp extends StatelessWidget {
             password: args["password"] ?? "",
           );
         },
+
+        // ✅ Tambahkan route untuk halaman keranjang
+        '/cart': (context) => const CartPage(),
       },
     );
   }

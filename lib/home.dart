@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:login_app/categories.dart';
 import 'detail_page.dart';
 import 'data/camping_data.dart';
 import 'models/camping_item.dart';
 import 'profilpage.dart';
+import 'models/cart_providers.dart';
 import 'package:intl/intl.dart';
 
 final NumberFormat formatRupiah =
@@ -56,6 +58,9 @@ class HomePage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     int crossAxisCount = (screenWidth / 220).floor().clamp(2, 6);
 
+    // ✅ Akses CartProvider
+    final cart = Provider.of<CartProvider>(context);
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -101,33 +106,72 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
+
+                  // ✅ Tambahkan ikon profil dan cart di pojok kanan atas
                   Positioned(
                     top: 40,
                     right: 24,
                     child: SafeArea(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProfilePage(
-                                email: email,
-                                password: password,
+                      child: Row(
+                        children: [
+                          // 🔹 Tombol Cart dengan badge jumlah item
+                          Stack(
+                            alignment: Alignment.topRight,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.shopping_cart,
+                                    color: Colors.white, size: 28),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/cart');
+                                },
+                              ),
+                              if (cart.items.isNotEmpty)
+                                Positioned(
+                                  right: 4,
+                                  top: 4,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(4),
+                                    decoration: const BoxDecoration(
+                                      color: Colors.red,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Text(
+                                      '${cart.items.length}',
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          const SizedBox(width: 8),
+
+                          // 🔹 Tombol Profil
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProfilePage(
+                                    email: email,
+                                    password: password,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: CircleAvatar(
+                              backgroundColor: Colors.white.withOpacity(0.3),
+                              child: Text(
+                                username.isNotEmpty
+                                    ? username[0].toUpperCase()
+                                    : 'U',
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                          );
-                        },
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white.withOpacity(0.3),
-                          child: Text(
-                            username.isNotEmpty
-                                ? username[0].toUpperCase()
-                                : 'U',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   ),
@@ -135,6 +179,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+
+          // 🔽 Bagian kategori dan produk tetap sama
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
@@ -163,6 +209,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+
+          // 🔽 Category section
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,12 +229,10 @@ class HomePage extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: categories.length,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 0), // hilangkan padding default
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0), // jarak antar item
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: CategoryCard(
                             gambar: categories[index]['gambar']!,
                             name: categories[index]['name']!,
@@ -201,7 +247,8 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          
+
+          // 🔽 Produk lainnya
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
@@ -279,7 +326,7 @@ class ProductCard extends StatelessWidget {
                     const Spacer(),
                     Text(
                       formatRupiah.format(item.harga),
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.red,
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
