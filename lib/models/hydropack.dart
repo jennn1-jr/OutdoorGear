@@ -8,6 +8,7 @@ class Hydropack extends CampingItem {
   final String gambarlatar;
 
   Hydropack({
+    required String id,
     required String nama,
     required String brand,
     required String gambar,
@@ -16,6 +17,7 @@ class Hydropack extends CampingItem {
     required double harga,
     required this.gambarlatar,
   }) : super(
+    id: id, 
     nama: nama,
     brand: brand,
     gambar: gambar,

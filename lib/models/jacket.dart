@@ -6,6 +6,7 @@ class Jacket extends CampingItem {
   final String deskripsi;
 
   Jacket({
+    required String id,
     required String nama,
     required String brand,
     required String gambar,
@@ -14,6 +15,7 @@ class Jacket extends CampingItem {
     required double harga,
     required String gambarLatar,
   }) : super(
+    id: id,
     nama: nama,
     brand: brand,
     gambar: gambar,

@@ -12,7 +12,7 @@ class CartProvider with ChangeNotifier {
   }
 
   void tambahItem(CampingItem item) {
-    final index = _items.indexWhere((cartItem) => cartItem.item.nama == item.nama);
+    final index = _items.indexWhere((cartItem) => cartItem.item.id == item.id);
     if (index >= 0) {
       _items[index].quantity++;
     } else {
@@ -22,7 +22,7 @@ class CartProvider with ChangeNotifier {
   }
 
   void kurangiItem(CampingItem item) {
-    final index = _items.indexWhere((cartItem) => cartItem.item.nama == item.nama);
+    final index = _items.indexWhere((cartItem) => cartItem.item.id == item.id);
     if (index >= 0) {
       if (_items[index].quantity > 1) {
         _items[index].quantity--;
@@ -34,7 +34,7 @@ class CartProvider with ChangeNotifier {
   }
 
   void hapusItem(CampingItem item) {
-    _items.removeWhere((cartItem) => cartItem.item.nama == item.nama);
+    _items.removeWhere((cartItem) => cartItem.item.id == item.id);
     notifyListeners();
   }
 

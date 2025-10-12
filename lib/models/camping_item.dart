@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 abstract class CampingItem {
   // Properti privat (sesuai kodemu)
+  String _id; 
   String _nama;
   String _brand;
   String _gambar;
@@ -10,13 +11,15 @@ abstract class CampingItem {
 
   // Constructor
   CampingItem({
+    required String id,
     required String nama,
     required String brand,
     required String gambar,
     required String deskripsi,
     required double harga,
     required String gambarLatar, // <-- TAMBAHKAN INI
-  })  : _nama = nama,
+  })  : _id = id,
+        _nama = nama,
         _brand = brand,
         _gambar = gambar,
         _deskripsi = deskripsi,
@@ -24,6 +27,7 @@ abstract class CampingItem {
         _gambarLatar = gambarLatar; // <-- TAMBAHKAN INI
 
   // Getter (sesuai kodemu)
+  String get id => _id;
   String get nama => _nama;
   String get brand => _brand;
   String get gambar => _gambar;
@@ -32,6 +36,7 @@ abstract class CampingItem {
   String get gambarLatar => _gambarLatar; // <-- TAMBAHKAN INI
 
   // Setter (sesuai kodemu)
+  set id(String value) => _id = value;
   set nama(String value) => _nama = value;
   set brand(String value) => _brand = value;
   set gambar(String value) => _gambar = value;

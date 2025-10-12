@@ -16,6 +16,7 @@ final NumberFormat formatRupiah =
 
 final List<CampingItem> campingList = [
   Tenda(
+      id: "Tenda_01",
       nama: 'Tenda',
       brand: 'Mountainsmith',
       gambar: "assets/images/Tenda.png",
@@ -25,6 +26,7 @@ final List<CampingItem> campingList = [
       harga: 2500000,
       gambarLatar: "assets/images/backgroundtenda.jpg"),
   Tenda(
+      id: "Tenda_02",
       nama: 'Tenda',
       brand: 'Eureka',
       gambar: "assets/images/Tenda2.png",
@@ -34,6 +36,7 @@ final List<CampingItem> campingList = [
       harga: 4500000,
       gambarLatar: "assets/images/backgroundtenda.jpg"),
   Carrier(
+      id: "Carrier_01",
       nama: 'Carrier',
       brand: 'Arei',
       gambar: "assets/images/carrier60L.png",
@@ -43,6 +46,7 @@ final List<CampingItem> campingList = [
       harga: 750000,
       gambarlatar: "assets/images/Mountain.png"),
   Carrier(
+      id: "Carrier_02",
       nama: 'Carrier',
       brand: 'Eiger',
       gambar: "assets/images/carrier.png",
@@ -52,6 +56,7 @@ final List<CampingItem> campingList = [
       harga: 850000,
       gambarlatar: "assets/images/Mountain.png"),
   Carrier(
+      id: "Carrier_03",
       nama: 'Carrier',
       brand: 'Eiger',
       gambar: "assets/images/carrier2.png",
@@ -61,6 +66,7 @@ final List<CampingItem> campingList = [
       harga: 850000,
       gambarlatar: "assets/images/Mountain.png"),
   Sleepingbag(
+      id: "Sleepingbag_01",
       nama: 'Sleeping Bag',
       brand: 'Helium',
       gambar: "assets/images/sleepingbag.png",
@@ -70,6 +76,7 @@ final List<CampingItem> campingList = [
       Ukuran: 'Regular',
       gambarLatar: "assets/images/backgroundsleepingbag.png"),
   Sepatu(
+      id: "Sepatu_01",
       nama: 'Sepatu',
       brand: 'Salewa',
       gambar: "assets/images/Sepatu.png",
@@ -79,6 +86,7 @@ final List<CampingItem> campingList = [
       harga: 5200000,
       gambarLatar: "assets/images/backgroundsepatu.png"),
   Sepatu(
+      id: "Sepatu_02",
       nama: 'Sepatu',
       brand: 'Oboz',
       gambar: "assets/images/Sepatu2.png",
@@ -88,6 +96,7 @@ final List<CampingItem> campingList = [
       harga: 4300000,
       gambarLatar: "assets/images/backgroundsepatu.png"),
   Sepatu(
+      id: "Sepatu_03",
       nama: 'Sepatu',
       brand: 'Salewa',
       gambar: "assets/images/Sepatu3.png",
@@ -97,6 +106,7 @@ final List<CampingItem> campingList = [
       harga: 3100000,
       gambarLatar: "assets/images/backgroundsepatu.png"),
   Sepatu(
+      id: "Sepatu_04",
       nama: 'Sepatu',
       brand: 'Arei',
       gambar: "assets/images/Sepatu5.png",
@@ -106,6 +116,7 @@ final List<CampingItem> campingList = [
       harga: 2250000,
       gambarLatar: "assets/images/backgroundsepatu.png"),
   Hydropack(
+      id: "Hydropack_01",
       nama: 'Hydropack',
       brand: 'Urban Peak Hybrid',
       gambar: "assets/images/Hydropack.png",
@@ -115,6 +126,7 @@ final List<CampingItem> campingList = [
       harga: 350000,
       gambarlatar: "assets/images/backgroundhydropack.png"),
   Headlamp(
+      id: "Headlamp_01",
       nama: 'Headlamp',
       brand: 'Fenix',
       gambar: "assets/images/Headlamp.png",
@@ -124,6 +136,7 @@ final List<CampingItem> campingList = [
       harga: 400000,
       gambarlatar: 'assets/images/backgroundheadlamp.png'),
   Jacket(
+      id: "Jacket_01",
       nama: 'Jacket Gunung',
       brand: 'Arcteryx',
       gambar: "assets/images/jacket1.png",
@@ -133,6 +146,7 @@ final List<CampingItem> campingList = [
       harga: 6500000,
       gambarLatar: 'assets/images/backgroundjacket.jpg'),
   Jacket(
+      id: "Jacket_02",
       nama: 'Jacket Gunung',
       brand: 'TNF',
       gambar: "assets/images/jacket2.png",
@@ -142,6 +156,7 @@ final List<CampingItem> campingList = [
       harga: 5500000,
       gambarLatar: 'assets/images/backgroundjacket.jpg'),
   Jacket(
+      id: "Jacket_03",
       nama: 'Jacket Gunung',
       brand: 'Patagonia',
       gambar: "assets/images/jacket3.png",
@@ -151,6 +166,7 @@ final List<CampingItem> campingList = [
       harga: 5999000,
       gambarLatar: 'assets/images/backgroundjacket.jpg'),
   KomporPortable(
+      id: "KomporPortable_01",
       nama: 'Kompor Portable',
       brand: 'Crystaline',
       gambar: "assets/images/komporportable.png",
@@ -160,6 +176,7 @@ final List<CampingItem> campingList = [
       harga: 100000,
       gambarLatar: 'assets/images/backgroundkomporportable.png'),
   Trackingpole(
+      id: "Trackingpole_01",
       nama: 'Tracking Pole',
       brand: 'Antishock',
       gambar: "assets/images/trackingpole1.png",
@@ -169,6 +186,7 @@ final List<CampingItem> campingList = [
       harga: 1200000,
       gambarLatar: "assets/images/backgroundtrackingpole.png"),
   Sarungtangan(
+      id: "Sarungtangan_01",
       nama: 'Sarung Tangan',
       brand: 'Arei',
       gambar: "assets/images/Sarungtangan.png",

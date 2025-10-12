@@ -8,6 +8,7 @@ class Carrier extends CampingItem {
   final String gambarlatar;
 
   Carrier({
+    required String id, 
     required String nama,
     required String brand,
     required String gambar,
@@ -15,7 +16,7 @@ class Carrier extends CampingItem {
     required this.liter,
     required double harga,
     required this.gambarlatar,
-  }) : super(nama: nama, brand: brand, gambar: gambar, harga: harga, deskripsi: deskripsi, gambarLatar: gambarlatar); // <-- 3. Kirim deskripsi ke super()
+  }) : super(id: id, nama: nama, brand: brand, gambar: gambar, harga: harga, deskripsi: deskripsi, gambarLatar: gambarlatar); // <-- 3. Kirim deskripsi ke super()
 
   @override
   String getInfo() {

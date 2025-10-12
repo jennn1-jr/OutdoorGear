@@ -7,6 +7,7 @@ class Headlamp extends CampingItem {
   final String deskripsi; // <-- Simpan deskripsi di sini
 
   Headlamp({
+    required String id,
     required String nama,
     required String brand,
     required String gambar,
@@ -15,6 +16,7 @@ class Headlamp extends CampingItem {
     required this.lumen,
     required String gambarlatar,
   }) : super(
+            id: id,
             nama: nama,
             brand: brand,
             gambar: gambar,

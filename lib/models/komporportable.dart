@@ -6,6 +6,7 @@ class KomporPortable extends CampingItem {
   final String deskripsi;
 
   KomporPortable({
+    required String id,
     required String nama,
     required String brand,
     required String gambar,
@@ -14,6 +15,7 @@ class KomporPortable extends CampingItem {
     required this.bahanBakar,
     required double harga,
   }) : super(
+            id: id,
             nama: nama,
             brand: brand,
             gambar: gambar,

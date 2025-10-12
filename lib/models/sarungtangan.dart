@@ -6,6 +6,7 @@ class Sarungtangan extends CampingItem {
   final String deskripsi;
 
   Sarungtangan({
+    required String id,
     required String nama,
     required String brand,
     required String gambar,
@@ -13,7 +14,7 @@ class Sarungtangan extends CampingItem {
     required this.deskripsi,
     required this.ukuran,
     required double harga,
-  }) : super(nama: nama, brand: brand, gambar: gambar, gambarLatar: gambarLatar, harga: harga, deskripsi: deskripsi);
+  }) : super(id: id, nama: nama, brand: brand, gambar: gambar, gambarLatar: gambarLatar, harga: harga, deskripsi: deskripsi);
 
   @override
   String getInfo() => deskripsi;
