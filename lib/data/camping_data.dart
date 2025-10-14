@@ -183,7 +183,7 @@ final List<CampingItem> campingList = [
       deskripsi:
           'Tracking pole ringan dan kuat, membantu menjaga keseimbangan saat mendaki di medan terjal',
       panjang: '130cm, 140cm, 150cm',
-      harga: 1200000,
+      harga: 120000,
       gambarlatar: "assets/images/backgroundtrackingpole.png"),
   Sarungtangan(
       id: "Sarungtangan_01",

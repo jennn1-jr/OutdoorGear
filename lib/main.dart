@@ -7,7 +7,11 @@ import 'package:login_app/SplashScreen.dart';
 import 'package:login_app/profilpage.dart';
 import 'package:login_app/models/cart_providers.dart'; // ✅ Sudah benar
 import 'package:login_app/models/cart_page.dart'; // ✅ import halaman cart
-void main() {
+import 'package:firebase_core/firebase_core.dart'; // ✅ import firebase core
+import 'firebase_options.dart'; // ✅ import firebase options
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
       providers: [

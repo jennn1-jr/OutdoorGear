@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // ✅ Tambahkan ini
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -8,7 +9,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  // Controller yang digunakan hanya untuk email dan password
+  // Controller input
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
@@ -16,45 +17,89 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
-  // --- Logika Registrasi dengan Validasi ---
-  void _register() {
-    // 1. Validasi field tidak boleh kosong
-    if (emailController.text.isEmpty || passwordController.text.isEmpty || confirmPasswordController.text.isEmpty) {
+  // --- Registrasi dengan Firebase Authentication ---
+  void _register() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+    final confirm = confirmPasswordController.text.trim();
+
+    // Validasi field kosong
+    if (email.isEmpty || password.isEmpty || confirm.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Semua field wajib diisi!"),
           backgroundColor: Colors.red,
         ),
       );
-      return; // Hentikan fungsi jika ada field yang kosong
+      return;
     }
 
-    // 2. Validasi password dan konfirmasi password harus cocok
-    if (passwordController.text != confirmPasswordController.text) {
+    // Validasi format email sederhana
+    if (!email.contains('@') || !email.contains('.')) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Password dan konfirmasi password tidak cocok!"),
+          content: Text("Format email tidak valid!"),
           backgroundColor: Colors.red,
         ),
       );
-      return; 
+      return;
     }
 
-    // --- Jika semua validasi berhasil ---
-    // Tampilkan pesan sukses
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("Registrasi berhasil! Anda akan diarahkan ke halaman login."),
-        backgroundColor: Colors.green,
-      ),
-    );
+    // Validasi kecocokan password
+    if (password != confirm) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Password dan konfirmasi tidak cocok!"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
 
-    // Tunggu sejenak agar pengguna bisa membaca pesan, lalu pindah halaman
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) { // Pastikan widget masih ada di tree
-        Navigator.pushReplacementNamed(context, "/login");
+    // Minimal panjang password
+    if (password.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Password minimal 6 karakter!"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    try {
+      // ✅ Registrasi ke Firebase Auth
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Registrasi berhasil!"),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      // Arahkan ke halaman login
+      Navigator.pushReplacementNamed(context, "/login");
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = "Terjadi kesalahan.";
+      if (e.code == 'email-already-in-use') {
+        errorMessage = "Email sudah digunakan!";
+      } else if (e.code == 'invalid-email') {
+        errorMessage = "Format email tidak valid!";
+      } else if (e.code == 'weak-password') {
+        errorMessage = "Password terlalu lemah!";
       }
-    });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -62,7 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background & Overlay tidak berubah
+          // Background
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -71,9 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
           ),
-          Container(
-            color: Colors.black.withOpacity(0.4),
-          ),
+          Container(color: Colors.black.withOpacity(0.4)),
 
           // Form Registrasi
           Center(
@@ -102,74 +145,94 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF172554),
+                        color: Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       "Create an account to start your journey.",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[700],
-                      ),
+                      style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                     ),
                     const SizedBox(height: 30),
 
-                    // Field Email
+                    // Email
                     TextField(
                       controller: emailController,
                       decoration: InputDecoration(
                         labelText: "Email",
-                        prefixIcon: const Icon(Icons.email, color: Color(0xFF172554)),
+                        prefixIcon: const Icon(Icons.email, color: Color.fromARGB(255, 0, 0, 0)),
                         filled: true,
                         fillColor: Colors.grey[100],
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF172554), width: 2)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide:
+                                const BorderSide(color: Color.fromARGB(255, 0, 0, 0), width: 2)),
                       ),
                     ),
                     const SizedBox(height: 20),
 
-                    // Field Password
+                    // Password
                     TextField(
                       controller: passwordController,
                       obscureText: !_isPasswordVisible,
                       decoration: InputDecoration(
                         labelText: "Password",
-                        prefixIcon: const Icon(Icons.lock, color: Color(0xFF172554)),
+                        prefixIcon: const Icon(Icons.lock, color: Color.fromARGB(255, 0, 0, 0)),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                            color: const Color(0xFF172554),
+                            _isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: const Color.fromARGB(255, 0, 0, 0),
                           ),
-                          onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+                          onPressed: () => setState(
+                              () => _isPasswordVisible = !_isPasswordVisible),
                         ),
                         filled: true,
                         fillColor: Colors.grey[100],
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF172554), width: 2)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide:
+                                const BorderSide(color: Color.fromARGB(255, 0, 0, 0), width: 2)),
                       ),
                     ),
                     const SizedBox(height: 20),
 
-                    // Field Konfirmasi Password
+                    // Konfirmasi Password
                     TextField(
                       controller: confirmPasswordController,
                       obscureText: !_isConfirmPasswordVisible,
                       decoration: InputDecoration(
                         labelText: "Confirm Password",
-                        prefixIcon: const Icon(Icons.lock_clock_outlined, color: Color(0xFF172554)),
+                        prefixIcon: const Icon(Icons.lock_clock_outlined,
+                            color: Color.fromARGB(255, 0, 0, 0)),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                            color: const Color(0xFF172554),
+                            _isConfirmPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: const Color.fromARGB(255, 0, 0, 0),
                           ),
-                          onPressed: () => setState(() => _isConfirmPasswordVisible = !_isConfirmPasswordVisible),
+                          onPressed: () => setState(() =>
+                              _isConfirmPasswordVisible =
+                                  !_isConfirmPasswordVisible),
                         ),
                         filled: true,
                         fillColor: Colors.grey[100],
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF172554), width: 2)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide:
+                                const BorderSide(color: Color.fromARGB(255, 0, 0, 0), width: 2)),
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -181,26 +244,32 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: ElevatedButton(
                         onPressed: _register,
                         style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          backgroundColor: const Color(0xFF172554),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                           foregroundColor: Colors.white,
                         ),
-                        child: const Text("Register", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        child: const Text(
+                          "Register",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),
 
-                    // Link kembali ke Login
+                    // Link ke Login
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Already have an account? ", style: TextStyle(color: Colors.grey[700])),
+                        Text("Already have an account? ",
+                            style: TextStyle(color: Colors.grey[700])),
                         GestureDetector(
                           onTap: () => Navigator.pop(context),
                           child: const Text(
                             "Login",
                             style: TextStyle(
-                              color: Color(0xFF172554),
+                              color: Color.fromARGB(255, 0, 0, 0),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
