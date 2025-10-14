@@ -5,7 +5,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart'; // <--- WAJIB untuk PdfPageFormat
-import 'models/cart.dart';
 import 'models/cart_providers.dart';
 import 'package:provider/provider.dart';
 

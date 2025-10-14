@@ -1,54 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/models/camping_item.dart';
-
+import 'camping_item.dart';
+import 'package:login_app/info_widget.dart';
 class Trackingpole extends CampingItem {
-  final String Panjang; 
-  final String deskripsi;
+  final String panjang; // <-- Nama variabel diperbaiki
 
   Trackingpole({
     required String id,
     required String nama,
     required String brand,
     required String gambar,
-    required String gambarLatar,
-    required this.deskripsi,
-    required this.Panjang,
+    required String gambarlatar,
+    required String deskripsi,
+    required this.panjang,
     required double harga,
-  }) : super(id: id, nama: nama, brand: brand, gambar: gambar, gambarLatar: gambarLatar, harga: harga, deskripsi: deskripsi);
+  }) : super(id: id, nama: nama, brand: brand, gambar: gambar, gambarlatar: gambarlatar, harga: harga, deskripsi: deskripsi);
 
   @override
   String getInfo() => deskripsi;
 
   @override
-  Widget buildSpecificDetails() {
+  Widget buildSpecificDetails(String? selectedSize, Function(String) onSizeSelected) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Ukuran Tersedia:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black54)),
+        const Text("Panjang Tersedia:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black54)),
         const SizedBox(height: 8),
-        // Pisahkan ukuran berdasarkan koma dan buat menjadi tombol
-        Row(
-          children: Panjang.split(',').map((size) => ChoiceButton(label: size.trim())).toList(),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: panjang.split(',').map((size) {
+            final currentSize = size.trim();
+            final isSelected = selectedSize == currentSize;
+            // 2. Panggil 'ChoiceButton' dari file bantuan
+            return ChoiceButton(
+              label: currentSize,
+              isSelected: isSelected,
+              onTap: () => onSizeSelected(currentSize),
+            );
+          }).toList(),
         ),
       ],
     );
   }
-}
-class ChoiceButton extends StatelessWidget {
-  final String label;
-  const ChoiceButton({super.key, required this.label});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-    );
-  }
+  // 3. HAPUS definisi ChoiceButton dari sini
 }

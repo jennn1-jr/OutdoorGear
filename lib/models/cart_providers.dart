@@ -11,12 +11,18 @@ class CartProvider with ChangeNotifier {
     return _items.fold(0, (sum, item) => sum + item.totalPrice);
   }
 
-  void tambahItem(CampingItem item) {
+  // =======================================================
+  // FUNGSI INI DIPERBAIKI TOTAL
+  // =======================================================
+  void tambahItem(CampingItem item, [int quantity = 1]) {
     final index = _items.indexWhere((cartItem) => cartItem.item.id == item.id);
+    
     if (index >= 0) {
-      _items[index].quantity++;
+      // Jika produk sudah ada, tambahkan jumlahnya sesuai parameter 'quantity'
+      _items[index].quantity += quantity;
     } else {
-      _items.add(CartItem(item: item));
+      // Jika produk baru, tambahkan ke keranjang dengan jumlah 'quantity'
+      _items.add(CartItem(item: item, quantity: quantity));
     }
     notifyListeners();
   }

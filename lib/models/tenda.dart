@@ -1,41 +1,29 @@
 import 'package:flutter/material.dart';
-import 'camping_item.dart'; // Sesuaikan path jika file terpisah
+import 'package:login_app/info_widget.dart';
+import 'camping_item.dart';
 
 class Tenda extends CampingItem {
   final int kapasitas;
-  final String deskripsi;
 
   Tenda({
     required String id,
     required String nama,
     required String brand,
     required String gambar,
-    required String gambarLatar,
-    required this.deskripsi,
+    required String gambarlatar,
+    required String deskripsi,
     required this.kapasitas,
     required double harga,
-  }) : super(id: id, nama: nama, brand: brand, gambar: gambar, gambarLatar: gambarLatar, harga: harga, deskripsi: deskripsi);
+  }) : super(id: id, nama: nama, brand: brand, gambar: gambar, gambarlatar: gambarlatar, harga: harga, deskripsi: deskripsi);
 
   @override
   String getInfo() => deskripsi;
 
   @override
-  Widget buildSpecificDetails() {
-    return _buildInfoRow("Kapasitas", "$kapasitas Orang");
+  Widget buildSpecificDetails(String? selectedSize, Function(String) onSizeSelected) {
+    // 2. Panggil 'buildInfoRow' dari file bantuan
+    return buildInfoRow("Kapasitas", "$kapasitas Orang");
   }
-}
 
-
-// === WIDGET BANTUAN (Bisa diletakkan di bawah atau di file terpisah) ===
-
-// Widget bantuan untuk menampilkan info simpel (Label & Value)
-Widget _buildInfoRow(String label, String value) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black54)),
-      const SizedBox(height: 8),
-      Text(value, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-    ],
-  );
+  // 3. HAPUS definisi _buildInfoRow dari sini
 }

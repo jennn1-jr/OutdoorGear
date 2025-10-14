@@ -4,32 +4,36 @@ import 'camping_item.dart'; // Pastikan path ini benar
 
 class Carrier extends CampingItem {
   final int liter;
-  final String deskripsi;
-  final String gambarlatar;
+  // deskripsi & gambarLatar sudah ada di induk, tidak perlu didefinisikan ulang
+  // final String deskripsi;
+  // final String gambarlatar; 
 
   Carrier({
     required String id, 
     required String nama,
     required String brand,
     required String gambar,
-    required this.deskripsi, // <-- 2. Terima deskripsi di sini
+    required String deskripsi,
     required this.liter,
     required double harga,
-    required this.gambarlatar,
-  }) : super(id: id, nama: nama, brand: brand, gambar: gambar, harga: harga, deskripsi: deskripsi, gambarLatar: gambarlatar); // <-- 3. Kirim deskripsi ke super()
+    required String gambarlatar, // <-- Gunakan camelCase agar konsisten
+  }) : super(id: id, nama: nama, brand: brand, gambar: gambar, harga: harga, deskripsi: deskripsi, gambarlatar: gambarlatar);
 
   @override
   String getInfo() {
-    // 4. Cukup kembalikan deskripsi
     return deskripsi;
   }
 
-  // 5. Tambahkan fungsi yang wajib ada ini
+  // =========================================================
+  // PERUBAHAN UTAMA HANYA DI BARIS INI
+  // =========================================================
   @override
-  Widget buildSpecificDetails() {
-    // Ini adalah widget yang akan ditampilkan di DetailPage
+  Widget buildSpecificDetails(String? selectedSize, Function(String) onSizeSelected) {
+    // Parameter 'selectedSize' dan 'onSizeSelected' diterima tapi diabaikan
+    // karena Carrier tidak memiliki pilihan ukuran.
     return _buildInfoRow("Kapasitas", "$liter Liter");
   }
+  // =========================================================
 
   // Widget bantuan untuk menampilkan info
   Widget _buildInfoRow(String title, String value) {

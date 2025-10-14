@@ -24,7 +24,7 @@ final List<CampingItem> campingList = [
           'Tenda Mountainsmith, cocok untuk camping bersama teman atau pasangan, dan pemasangan cepat yang ringan',
       kapasitas: 2,
       harga: 2500000,
-      gambarLatar: "assets/images/backgroundtenda.jpg"),
+      gambarlatar: "assets/images/backgroundtenda.jpg"),
   Tenda(
       id: "Tenda_02",
       nama: 'Tenda',
@@ -34,7 +34,7 @@ final List<CampingItem> campingList = [
           'Tenda Eureka! kapasitas 6 orang adalah pilihan ideal untuk camping keluarga atau grup kecil yang mengutamakan kenyamanan dan ruang gerak. Didesain dengan fokus pada fungsionalitas, tenda ini menawarkan tempat berlindung yang andal dan mudah digunakan di alam bebas.',
       kapasitas: 6,
       harga: 4500000,
-      gambarLatar: "assets/images/backgroundtenda.jpg"),
+      gambarlatar: "assets/images/backgroundtenda.jpg"),
   Carrier(
       id: "Carrier_01",
       nama: 'Carrier',
@@ -73,8 +73,8 @@ final List<CampingItem> campingList = [
       deskripsi:
           'Kantung tidur Helium dirancang untuk para pecinta alam, menawarkan isolasi yang ringan dan efisien. Kantung Helium diisi dengan bulu bebek premium, memberikan isolasi dan kehangatan yang sangat baik untuk berbagai aktivitas luar ruangan',
       harga: 450000,
-      Ukuran: 'Regular',
-      gambarLatar: "assets/images/backgroundsleepingbag.png"),
+      ukuran: 'Regular, Large',
+      gambarlatar: "assets/images/backgroundsleepingbag.png"),
   Sepatu(
       id: "Sepatu_01",
       nama: 'Sepatu',
@@ -84,7 +84,7 @@ final List<CampingItem> campingList = [
           'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
       ukuran: '29',
       harga: 5200000,
-      gambarLatar: "assets/images/backgroundsepatu.png"),
+      gambarlatar: "assets/images/backgroundsepatu.png"),
   Sepatu(
       id: "Sepatu_02",
       nama: 'Sepatu',
@@ -94,7 +94,7 @@ final List<CampingItem> campingList = [
           'Sepatu Oboz berfokus pada kenyamanan superior dan dukungan anatomi kaki langsung dari kotak. Dengan insole O FIT™ yang terkenal, sepatu ini sangat ideal bagi pendaki yang memprioritaskan kenyamanan di perjalanan jauh dan membutuhkan topangan kaki yang maksimal.',
       ukuran: '29,30,31',
       harga: 4300000,
-      gambarLatar: "assets/images/backgroundsepatu.png"),
+      gambarlatar: "assets/images/backgroundsepatu.png"),
   Sepatu(
       id: "Sepatu_03",
       nama: 'Sepatu',
@@ -104,7 +104,7 @@ final List<CampingItem> campingList = [
           'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
       ukuran: '29,30,31',
       harga: 3100000,
-      gambarLatar: "assets/images/backgroundsepatu.png"),
+      gambarlatar: "assets/images/backgroundsepatu.png"),
   Sepatu(
       id: "Sepatu_04",
       nama: 'Sepatu',
@@ -114,7 +114,7 @@ final List<CampingItem> campingList = [
           'Sepatu Arei adalah pilihan fungsional dengan harga sangat terjangkau yang dirancang untuk medan tropis Indonesia. Sepatu ini menyediakan daya tahan dan perlindungan yang cukup untuk pendaki pemula hingga menengah atau mereka yang mencari produk dengan nilai terbaik. ',
       ukuran: '29,30,31',
       harga: 2250000,
-      gambarLatar: "assets/images/backgroundsepatu.png"),
+      gambarlatar: "assets/images/backgroundsepatu.png"),
   Hydropack(
       id: "Hydropack_01",
       nama: 'Hydropack',
@@ -144,7 +144,7 @@ final List<CampingItem> campingList = [
           'Jaket gunung tahan angin dan air, dilengkapi lapisan dalam untuk menjaga suhu tubuh tetap hangat saat mendaki di cuaca dingin',
       ukuran: "XL",
       harga: 6500000,
-      gambarLatar: 'assets/images/backgroundjacket.jpg'),
+      gambarlatar: 'assets/images/backgroundjacket.jpg'),
   Jacket(
       id: "Jacket_02",
       nama: 'Jacket Gunung',
@@ -154,7 +154,7 @@ final List<CampingItem> campingList = [
           'Jaket gunung tahan angin dan air, dilengkapi lapisan dalam untuk menjaga suhu tubuh tetap hangat saat mendaki di cuaca dingin',
       ukuran: "XL",
       harga: 5500000,
-      gambarLatar: 'assets/images/backgroundjacket.jpg'),
+      gambarlatar: 'assets/images/backgroundjacket.jpg'),
   Jacket(
       id: "Jacket_03",
       nama: 'Jacket Gunung',
@@ -164,7 +164,7 @@ final List<CampingItem> campingList = [
           'Jaket gunung tahan angin dan air, dilengkapi lapisan dalam untuk menjaga suhu tubuh tetap hangat saat mendaki di cuaca dingin',
       ukuran: "XL",
       harga: 5999000,
-      gambarLatar: 'assets/images/backgroundjacket.jpg'),
+      gambarlatar: 'assets/images/backgroundjacket.jpg'),
   KomporPortable(
       id: "KomporPortable_01",
       nama: 'Kompor Portable',
@@ -174,7 +174,7 @@ final List<CampingItem> campingList = [
           'Kompor portable berbahan bakar gas kaleng yang praktis untuk memasak saat camping. Ringan dan mudah dibawa',
       bahanBakar: "Gas",
       harga: 100000,
-      gambarLatar: 'assets/images/backgroundkomporportable.png'),
+      gambarlatar: 'assets/images/backgroundkomporportable.png'),
   Trackingpole(
       id: "Trackingpole_01",
       nama: 'Tracking Pole',
@@ -182,9 +182,9 @@ final List<CampingItem> campingList = [
       gambar: "assets/images/trackingpole1.png",
       deskripsi:
           'Tracking pole ringan dan kuat, membantu menjaga keseimbangan saat mendaki di medan terjal',
-      Panjang: '130cm, 140cm, 150cm',
+      panjang: '130cm, 140cm, 150cm',
       harga: 1200000,
-      gambarLatar: "assets/images/backgroundtrackingpole.png"),
+      gambarlatar: "assets/images/backgroundtrackingpole.png"),
   Sarungtangan(
       id: "Sarungtangan_01",
       nama: 'Sarung Tangan',
@@ -194,5 +194,5 @@ final List<CampingItem> campingList = [
           'Sarung tangan yang terbuat dari bahan polar fleece, cocok digunakan ketika dalam cuaca dingin seperti saat camping maupun melakukan kegiatan outdoor lainnya. Sarung tangan Marion siap menemani petualangan Areingers',
       ukuran: 'M,L,XL',
       harga: 130000,
-      gambarLatar: "assets/images/backgroundsarungtangan.png"),
+      gambarlatar: "assets/images/backgroundsarungtangan.png"),
 ];
