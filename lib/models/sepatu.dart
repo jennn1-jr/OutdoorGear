@@ -5,6 +5,7 @@ import 'package:login_app/models/camping_item.dart';
 
 class Sepatu extends CampingItem {
   final String ukuran; 
+  final double? hargaDiskon;
   // deskripsi sudah ada di induk, jadi tidak perlu didefinisikan ulang
   // final String deskripsi; // <-- Sebaiknya ini dihapus jika sudah ada di super()
 
@@ -17,6 +18,7 @@ class Sepatu extends CampingItem {
     required String deskripsi,
     required this.ukuran,
     required double harga,
+    this.hargaDiskon,
   }) : super(id: id, nama: nama, brand: brand, gambar: gambar, gambarlatar: gambarlatar, harga: harga, deskripsi: deskripsi);
 
   @override

@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 final NumberFormat formatRupiah =
     NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
 
-class CategoryPage extends StatelessWidget {
+class CategoryPage extends StatefulWidget {
   final String categoryName;
   final String categoryFilter;
   final String categoryBackground;
@@ -20,23 +20,65 @@ class CategoryPage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final List<CampingItem> categoryItems = campingList
-        .where((item) =>
-            item.nama.toLowerCase().contains(categoryFilter.toLowerCase()))
+  State<CategoryPage> createState() => _CategoryPageState();
+}
+
+class _CategoryPageState extends State<CategoryPage> {
+  TextEditingController _searchController = TextEditingController();
+  List<CampingItem> _filteredItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _filteredItems = campingList
+        .where((item) => item.nama
+            .toLowerCase()
+            .contains(widget.categoryFilter.toLowerCase()))
         .toList();
 
-    // Cek lebar layar untuk layout responsif
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    final query = _searchController.text.toLowerCase();
+
+    setState(() {
+      if (query.isEmpty) {
+        _filteredItems = campingList
+            .where((item) => item.nama
+                .toLowerCase()
+                .contains(widget.categoryFilter.toLowerCase()))
+            .toList();
+      } else {
+        _filteredItems = campingList
+            .where((item) =>
+                item.nama
+                    .toLowerCase()
+                    .contains(widget.categoryFilter.toLowerCase()) &&
+                (item.nama.toLowerCase().contains(query) ||
+                    item.brand.toLowerCase().contains(query)))
+            .toList();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final isDesktop = MediaQuery.of(context).size.width > 800;
-    final crossAxisCount = isDesktop ? 4 : 2; // 4 kolom di desktop, 2 di HP
-    final childAspectRatio = isDesktop ? 0.8 : 0.75; // Sesuaikan rasio aspek
+    final crossAxisCount = isDesktop ? 4 : 2;
+    final childAspectRatio = isDesktop ? 0.8 : 0.75;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          // --- HEADER (DIPERBESAR & DIBERI EFEK SAMAR) ---
           SliverAppBar(
-            expandedHeight: 550.0, // <-- 1. TINGGI HEADER DIPERBESAR
+            expandedHeight: 550.0,
             pinned: true,
             stretch: true,
             backgroundColor: const Color(0xFF172554),
@@ -46,10 +88,9 @@ class CategoryPage extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   Image.asset(
-                    categoryBackground,
+                    widget.categoryBackground,
                     fit: BoxFit.cover,
                   ),
-                  // Overlay Gradien untuk efek samar
                   Container(
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -71,21 +112,19 @@ class CategoryPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // --- 3. EFEK SAMAR/TRANSPARAN ---
                           Opacity(
-                            opacity:
-                                0.50, // <-- Atur tingkat transparansi di sini
+                            opacity: 0.50,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Home > $categoryName",
+                                  "Home > ${widget.categoryName}",
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 16),
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  categoryName,
+                                  widget.categoryName,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 40,
@@ -93,19 +132,22 @@ class CategoryPage extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: 16),
-                                const TextField(
+                                TextField(
+                                  controller: _searchController,
                                   decoration: InputDecoration(
-                                    hintText: "Search in this category...",
-                                    prefixIcon:
-                                        Icon(Icons.search, color: Colors.grey),
-                                    hintStyle: TextStyle(color: Colors.grey),
+                                    hintText:
+                                        "Search in ${widget.categoryName}...",
+                                    prefixIcon: const Icon(Icons.search,
+                                        color: Colors.grey),
+                                    hintStyle:
+                                        const TextStyle(color: Colors.grey),
                                     filled: true,
                                     fillColor: Colors.white,
                                     contentPadding:
-                                        EdgeInsets.symmetric(vertical: 14),
-                                    border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(30)),
+                                        const EdgeInsets.symmetric(vertical: 14),
+                                    border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(30)),
                                       borderSide: BorderSide.none,
                                     ),
                                   ),
@@ -122,36 +164,64 @@ class CategoryPage extends StatelessWidget {
             ),
           ),
 
-          // --- GRID PRODUK (UKURAN KARTU DISESUAIKAN) ---
+          // === GRID PRODUK (TERFILTER REALTIME) ===
           SliverPadding(
             padding: const EdgeInsets.all(16.0),
             sliver: SliverGrid.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount, // Jumlah kolom responsif
+                crossAxisCount: crossAxisCount,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
-                childAspectRatio:
-                    childAspectRatio, // <-- 2. RASIO KARTU DIPERBAIKI
+                childAspectRatio: childAspectRatio,
               ),
-              itemCount: categoryItems.length,
+              itemCount: _filteredItems.length,
               itemBuilder: (context, index) {
-                return ProductCard(item: categoryItems[index]);
+                return ProductCard(item: _filteredItems[index]);
               },
             ),
           ),
+
+          // === Pesan jika hasil kosong ===
+          if (_filteredItems.isEmpty)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: Center(
+                  child: Column(
+                    children: const [
+                      Icon(Icons.search_off, size: 60, color: Colors.grey),
+                      SizedBox(height: 10),
+                      Text("Produk tidak ditemukan",
+                          style:
+                              TextStyle(color: Colors.grey, fontSize: 16)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
   }
 }
 
-// KARTU PRODUK (tidak berubah)
+// === KARTU PRODUK (SUDAH ADA HARGA DISKON) ===
 class ProductCard extends StatelessWidget {
   final CampingItem item;
   const ProductCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
+    double? hargaDiskon;
+    try {
+      var dynamicItem = item as dynamic;
+      if (dynamicItem.hargaDiskon != null) {
+        hargaDiskon = dynamicItem.hargaDiskon;
+      }
+    } catch (e) {
+      hargaDiskon = null;
+    }
+
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -159,14 +229,15 @@ class ProductCard extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, 5))
-            ]),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 5))
+          ],
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -187,18 +258,38 @@ class ProductCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(item.nama,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16), // Font diperbesar sedikit
+                          fontWeight: FontWeight.bold, fontSize: 16),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis),
                   const SizedBox(height: 8),
-                  Text(
-                    formatRupiah.format(item.harga),
-                    style: TextStyle(
+                  if (hargaDiskon != null) ...[
+                    Text(
+                      formatRupiah.format(item.harga),
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      formatRupiah.format(hargaDiskon),
+                      style: const TextStyle(
+                        color: Colors.deepOrange,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ] else ...[
+                    Text(
+                      formatRupiah.format(item.harga),
+                      style: const TextStyle(
                         color: Colors.red,
                         fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),

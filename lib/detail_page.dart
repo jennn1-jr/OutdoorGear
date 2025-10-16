@@ -16,7 +16,7 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   int _quantity = 1;
-  String? _selectedSize; // State untuk menyimpan ukuran yang dipilih
+  String? _selectedSize;
 
   final NumberFormat formatRupiah =
       NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
@@ -26,13 +26,12 @@ class _DetailPageState extends State<DetailPage> {
         if (_quantity > 1) _quantity--;
       });
 
-  // Fungsi untuk memperbarui ukuran yang dipilih
   void _selectSize(String size) {
     setState(() {
       if (_selectedSize == size) {
-        _selectedSize = null; // Batalkan pilihan jika ukuran yang sama diklik lagi
+        _selectedSize = null;
       } else {
-        _selectedSize = size; // Pilih ukuran baru
+        _selectedSize = size;
       }
     });
   }
@@ -99,8 +98,8 @@ class _DetailPageState extends State<DetailPage> {
                             onIncrement: _incrementQuantity,
                             onDecrement: _decrementQuantity,
                             formatRupiah: formatRupiah,
-                            selectedSize: _selectedSize,     // Kirim state ukuran terpilih
-                            onSizeSelected: _selectSize,    // Kirim fungsi untuk memilih ukuran
+                            selectedSize: _selectedSize,
+                            onSizeSelected: _selectSize,
                           ),
                         ),
                       ],
@@ -128,15 +127,17 @@ class _DetailPageState extends State<DetailPage> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              // Validasi: Cek jika item adalah Sepatu dan ukuran belum dipilih
-                              if ((widget.item is Sepatu || widget.item is Jacket) && _selectedSize == null) {
+                              if ((widget.item is Sepatu ||
+                                      widget.item is Jacket) &&
+                                  _selectedSize == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: const Text("Silakan pilih ukuran terlebih dahulu."),
+                                    content: const Text(
+                                        "Silakan pilih ukuran terlebih dahulu."),
                                     backgroundColor: Colors.red.shade600,
                                   ),
                                 );
-                                return; // Hentikan fungsi jika validasi gagal
+                                return;
                               }
 
                               cartProvider.tambahItem(widget.item, _quantity);
@@ -198,7 +199,7 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-// === WIDGET DETAIL PRODUK (DIPERBARUI) ===
+// === DETAIL PRODUK DENGAN HARGA DISKON ===
 class ProductDetails extends StatelessWidget {
   final CampingItem item;
   final int quantity;
@@ -221,6 +222,16 @@ class ProductDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double? hargaDiskon;
+    try {
+      var dynamicItem = item as dynamic;
+      if (dynamicItem.hargaDiskon != null) {
+        hargaDiskon = dynamicItem.hargaDiskon;
+      }
+    } catch (e) {
+      hargaDiskon = null;
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -235,19 +246,36 @@ class ProductDetails extends StatelessWidget {
         Text(item.brand,
             style: TextStyle(fontSize: 16, color: Colors.grey.shade700)),
         const SizedBox(height: 16),
-        Text(
-          formatRupiah.format(item.harga),
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepOrange,
+        if (hargaDiskon != null) ...[
+          Text(
+            formatRupiah.format(item.harga),
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+              decoration: TextDecoration.lineThrough,
+            ),
           ),
-        ),
+          const SizedBox(height: 4),
+          Text(
+            formatRupiah.format(hargaDiskon),
+            style: const TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: Colors.deepOrange,
+            ),
+          ),
+        ] else ...[
+          Text(
+            formatRupiah.format(item.harga),
+            style: const TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: Colors.deepOrange,
+            ),
+          ),
+        ],
         const SizedBox(height: 20),
-
-        // Memanggil method dengan parameter yang dibutuhkan
         item.buildSpecificDetails(selectedSize, onSizeSelected),
-        
         const SizedBox(height: 20),
         const Text(
           "Jumlah :",
@@ -264,7 +292,7 @@ class ProductDetails extends StatelessWidget {
   }
 }
 
-// === WIDGET QUANTITY SELECTOR (LENGKAP) ===
+// === SELECTOR JUMLAH ===
 class QuantitySelector extends StatelessWidget {
   final int quantity;
   final VoidCallback onIncrement;

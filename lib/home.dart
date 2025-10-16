@@ -1,24 +1,161 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 import 'package:login_app/categories.dart';
 import 'detail_page.dart';
-import 'data/camping_data.dart';
-import 'models/camping_item.dart';
 import 'profilpage.dart';
 import 'models/cart_providers.dart';
-import 'package:intl/intl.dart';
+import 'models/camping_item.dart';
+import 'data/camping_data.dart';
 
 final NumberFormat formatRupiah =
     NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final String email;
   final String password;
   const HomePage({super.key, required this.email, required this.password});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final TextEditingController _searchController = TextEditingController();
+  final LayerLink _layerLink = LayerLink();
+  OverlayEntry? _overlayEntry;
+  List<CampingItem> filteredItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      _filterSearchResults(_searchController.text);
+    });
+  }
+
+  void _filterSearchResults(String query) {
+    final results = campingList
+        .where((item) =>
+            item.nama.toLowerCase().contains(query.toLowerCase()) ||
+            item.brand.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    setState(() {
+      filteredItems = results;
+    });
+
+    if (query.isEmpty) {
+      _removeOverlay();
+    } else {
+      _showOverlay();
+    }
+  }
+
+  void _showOverlay() {
+    _removeOverlay(); // hapus overlay lama
+
+    final overlay = Overlay.of(context);
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: CompositedTransformFollower(
+          link: _layerLink,
+          showWhenUnlinked: false,
+          offset: const Offset(0, 60),
+          child: Material(
+            elevation: 8,
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              constraints: const BoxConstraints(maxHeight: 250),
+              child: filteredItems.isEmpty
+                  ? const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text("Produk tidak ditemukan"),
+                      ),
+                    )
+                  : ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: filteredItems.length,
+                      itemBuilder: (context, index) {
+                        final item = filteredItems[index];
+                        // ✅ Jika kategori Sepatu, kasih diskon 25%
+                        double? hargaDiskon;
+                        if (item.nama.toLowerCase().contains('sepatu')) {
+                          hargaDiskon = item.harga * 0.75;
+                        }
+
+                        return ListTile(
+                          leading: Image.asset(item.gambar,
+                              width: 40, height: 40, fit: BoxFit.cover),
+                          title: Text(item.nama),
+                          subtitle: hargaDiskon != null
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      formatRupiah.format(item.harga),
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
+                                    ),
+                                    Text(
+                                      formatRupiah.format(hargaDiskon),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.deepOrange,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Text(formatRupiah.format(item.harga)),
+                          onTap: () {
+                            _removeOverlay();
+                            _searchController.clear();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => DetailPage(item: item),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    overlay.insert(_overlayEntry!);
+  }
+
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _removeOverlay();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String username = email.contains('@') ? email.split('@')[0] : email;
+    String username =
+        widget.email.contains('@') ? widget.email.split('@')[0] : widget.email;
+    final cart = Provider.of<CartProvider>(context);
 
     final List<Map<String, dynamic>> categories = [
       {
@@ -47,23 +184,13 @@ class HomePage extends StatelessWidget {
       },
     ];
 
-    final List<String> categoryItemNames =
-        categories.map((cat) => cat['filter'] as String).toList();
-
-    final List<CampingItem> otherItems = campingList
-        .where((item) => !categoryItemNames.any((catName) =>
-            item.nama.toLowerCase().contains(catName.toLowerCase())))
-        .toList();
-
     double screenWidth = MediaQuery.of(context).size.width;
     int crossAxisCount = (screenWidth / 220).floor().clamp(2, 6);
-
-    // ✅ Akses CartProvider
-    final cart = Provider.of<CartProvider>(context);
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          // 🔹 Header
           SliverToBoxAdapter(
             child: Container(
               height: screenWidth > 800 ? 500 : 420,
@@ -90,31 +217,40 @@ class HomePage extends StatelessWidget {
                                 fontSize: screenWidth > 600 ? 32 : 24,
                                 fontWeight: FontWeight.bold)),
                         const SizedBox(height: 16),
-                        const TextField(
-                            decoration: InputDecoration(
-                                hintText: "Search",
-                                prefixIcon: Icon(Icons.search),
-                                filled: true,
-                                fillColor: Colors.white,
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 15),
-                                border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(30)),
-                                    borderSide: BorderSide.none))),
+
+                        // 🔍 Search realtime popup
+                        CompositedTransformTarget(
+                          link: _layerLink,
+                          child: TextField(
+                            controller: _searchController,
+                            decoration: const InputDecoration(
+                              hintText: "Cari produk...",
+                              prefixIcon: Icon(Icons.search),
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 15),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                        ),
                         const Spacer(flex: 1),
                       ],
                     ),
                   ),
 
-                  // ✅ Tambahkan ikon profil dan cart di pojok kanan atas
+                  // 🔹 Icon Cart dan Profil
                   Positioned(
                     top: 40,
                     right: 24,
                     child: SafeArea(
                       child: Row(
                         children: [
-                          // 🔹 Tombol Cart dengan badge jumlah item
+                          // 🛒 Cart
                           Stack(
                             alignment: Alignment.topRight,
                             children: [
@@ -146,15 +282,15 @@ class HomePage extends StatelessWidget {
                           ),
                           const SizedBox(width: 8),
 
-                          // 🔹 Tombol Profil
+                          // 👤 Profil
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ProfilePage(
-                                    email: email,
-                                    password: password,
+                                    email: widget.email,
+                                    password: widget.password,
                                   ),
                                 ),
                               );
@@ -180,7 +316,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          // 🔽 Bagian kategori dan produk tetap sama
+          // 🔹 Banner promo
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
@@ -198,7 +334,7 @@ class HomePage extends StatelessWidget {
                         child: Container(color: Colors.black.withOpacity(0.4))),
                     const Center(
                         child: Text(
-                            "Diskon Pembelian Pertama\n All Sepatu Diskon 25%",
+                            "Diskon Pembelian Pertama\nAll Sepatu Diskon 25%",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.white,
@@ -210,7 +346,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          // 🔽 Category section
+          // 🔹 Category section
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,17 +363,16 @@ class HomePage extends StatelessWidget {
                   child: Center(
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
                       itemCount: categories.length,
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
                       itemBuilder: (context, index) {
+                        final category = categories[index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: CategoryCard(
-                            gambar: categories[index]['gambar']!,
-                            name: categories[index]['name']!,
-                            filter: categories[index]['filter']!,
-                            gambarLatar: categories[index]['gambarLatar']!,
+                            gambar: category['gambar']!,
+                            name: category['name']!,
+                            filter: category['filter']!,
+                            gambarLatar: category['gambarLatar']!,
                           ),
                         );
                       },
@@ -248,11 +383,11 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          // 🔽 Produk lainnya
+          // 🔹 Produk lainnya
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 16.0),
-              child: Text("Produk Lainnya",
+              child: Text("All Products",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
           ),
@@ -265,9 +400,9 @@ class HomePage extends StatelessWidget {
                 crossAxisSpacing: 16,
                 childAspectRatio: 0.7,
               ),
-              itemCount: otherItems.length,
+              itemCount: campingList.length,
               itemBuilder: (context, index) {
-                return ProductCard(item: otherItems[index]);
+                return ProductCard(item: campingList[index]);
               },
             ),
           ),
@@ -278,14 +413,24 @@ class HomePage extends StatelessWidget {
   }
 }
 
+// 🔹 Product Card (sudah support diskon sepatu)
 class ProductCard extends StatelessWidget {
   final CampingItem item;
   const ProductCard({super.key, required this.item});
+
   @override
   Widget build(BuildContext context) {
+    // ✅ Jika sepatu, diskon 25%
+    double? hargaDiskon;
+    if (item.nama.toLowerCase().contains('sepatu')) {
+      hargaDiskon = item.harga * 0.75;
+    }
+
     return GestureDetector(
-      onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => DetailPage(item: item))),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => DetailPage(item: item)),
+      ),
       child: Container(
         decoration: BoxDecoration(
             color: Colors.white,
@@ -324,13 +469,33 @@ class ProductCard extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis),
                     const Spacer(),
-                    Text(
-                      formatRupiah.format(item.harga),
-                      style: const TextStyle(
+                    if (hargaDiskon != null) ...[
+                      Text(
+                        formatRupiah.format(item.harga),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                      Text(
+                        formatRupiah.format(hargaDiskon),
+                        style: const TextStyle(
+                          color: Colors.deepOrange,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ] else ...[
+                      Text(
+                        formatRupiah.format(item.harga),
+                        style: const TextStyle(
                           color: Colors.red,
                           fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -342,6 +507,7 @@ class ProductCard extends StatelessWidget {
   }
 }
 
+// 🔹 Category Card
 class CategoryCard extends StatelessWidget {
   final String gambar;
   final String name;

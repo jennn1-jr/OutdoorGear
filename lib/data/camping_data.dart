@@ -84,6 +84,7 @@ final List<CampingItem> campingList = [
           'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
       ukuran: '29',
       harga: 5200000,
+      hargaDiskon: 4399000,
       gambarlatar: "assets/images/backgroundsepatu.png"),
   Sepatu(
       id: "Sepatu_02",
@@ -94,6 +95,7 @@ final List<CampingItem> campingList = [
           'Sepatu Oboz berfokus pada kenyamanan superior dan dukungan anatomi kaki langsung dari kotak. Dengan insole O FIT™ yang terkenal, sepatu ini sangat ideal bagi pendaki yang memprioritaskan kenyamanan di perjalanan jauh dan membutuhkan topangan kaki yang maksimal.',
       ukuran: '29,30,31',
       harga: 4300000,
+      hargaDiskon: 3870000,
       gambarlatar: "assets/images/backgroundsepatu.png"),
   Sepatu(
       id: "Sepatu_03",
@@ -104,6 +106,7 @@ final List<CampingItem> campingList = [
           'sepatu hiking berkualitas tinggi yang dirancang untuk medan alpine yang berat. Sepatu ini menawarkan kombinasi sempurna antara kenyamanan, daya tahan, dan perlindungan, menjadikannya pilihan ideal bagi para pendaki dan petualang yang menuntut performa terbaik dari alas kaki mereka',
       ukuran: '29,30,31',
       harga: 3100000,
+      hargaDiskon: 2790000,
       gambarlatar: "assets/images/backgroundsepatu.png"),
   Sepatu(
       id: "Sepatu_04",
@@ -114,6 +117,7 @@ final List<CampingItem> campingList = [
           'Sepatu Arei adalah pilihan fungsional dengan harga sangat terjangkau yang dirancang untuk medan tropis Indonesia. Sepatu ini menyediakan daya tahan dan perlindungan yang cukup untuk pendaki pemula hingga menengah atau mereka yang mencari produk dengan nilai terbaik. ',
       ukuran: '29,30,31',
       harga: 2250000,
+      hargaDiskon: 2025000,
       gambarlatar: "assets/images/backgroundsepatu.png"),
   Hydropack(
       id: "Hydropack_01",
